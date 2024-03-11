@@ -64,4 +64,6 @@ footer {
 
 table {
     margin: auto; /* Center the table */
+    display: block;
+    text-align: center;
 }
