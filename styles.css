@@ -19,7 +19,6 @@ header {
     color: black !important;
     padding: .5rem;
     text-align: center !important;
-    position: fixed;
     width: 100%;
     z-index: 1000;
     display: flex; /* Use flexbox for layout */
