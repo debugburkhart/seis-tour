@@ -81,4 +81,7 @@ table {
     margin: auto; /* Center the table */
     text-align: center;
     width: 80%; /* Set the width of the table */
+    border-collapse: collapse; /* Collapse table borders into a single border */
+    border: 1px solid white; /* Add a thin white border around the table */
 }
+
