@@ -27,6 +27,10 @@ header {
     align-items: center; /* Center content vertically */
 }
 
+header img {
+    margin-right: 0.5rem; /* Add some space between the image and the text */
+    vertical-align: middle; /* Align the image vertically in the middle */
+}
 nav ul {
     list-style-type: none;
 }
