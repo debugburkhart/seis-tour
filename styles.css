@@ -44,6 +44,11 @@ nav ul li a {
     color: black !important;
     text-decoration: none !important;
 }
+
+nav {
+    margin-top: 1rem; /* Add space between header text and nav */
+}
+
 main {
     padding: 2rem;
     width: 80%;
