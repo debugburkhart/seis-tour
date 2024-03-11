@@ -64,4 +64,5 @@ footer {
 table {
     margin: auto; /* Center the table */
     text-align: center;
+    width: 80%; /* Set the width of the table */
 }
