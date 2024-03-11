@@ -17,10 +17,14 @@ body {
 header {
     background-color: white !important;
     color: black !important;
-    padding: 1rem;
+    padding: .5rem;
     text-align: center !important;
-    width: 100%; /* Make the header span the entire width */
-    z-index: 1000; /* Ensure the header is above other elements */
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+    display: flex; /* Use flexbox for layout */
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically */
 }
 
 nav ul {
