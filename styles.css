@@ -17,9 +17,8 @@ body {
 header {
     background-color: white !important;
     color: black !important;
-    padding: .5rem;
+    padding: 1rem;
     text-align: center !important;
-    position: fixed;
     width: 100%; /* Make the header span the entire width */
     z-index: 1000; /* Ensure the header is above other elements */
 }
