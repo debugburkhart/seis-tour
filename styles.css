@@ -6,8 +6,9 @@ body, h1, h2, h3, p, ul, li {
 
 body {
     line-height: 1.6;
-     background-color: black;
+    background-color: black;
     color: white; /* Set text color to white for better readability */
+    text-align: center; /* Center align all text */
 }
 }
 
@@ -34,6 +35,9 @@ nav ul li a {
 
 main {
     padding: 2rem;
+    width: 80%; /* Set the width of the main content */
+    margin: auto; /* Center the main content horizontally */
+    text-align: left; /* Reset text alignment for main content */
 }
 
 section {
@@ -41,7 +45,7 @@ section {
 }
 
 footer {
-    background-color: #333;
+    background-color: black;
     color: #fff;
     text-align: center;
     padding: 1rem;
