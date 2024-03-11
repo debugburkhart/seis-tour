@@ -83,3 +83,11 @@ table {
     width: 80%; /* Set the width of the table */
 }
 
+table td {
+    padding: 5px; /* Adjust the padding between table cells */
+}
+
+table td img {
+    margin-right: 5px; /* Adjust the margin between the image and text */
+}
+
