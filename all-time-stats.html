@@ -44,10 +44,13 @@
             <div class="csv-container" id="content-wins"></div> <!-- Container for the table -->
             <h3>All Time Birdies or Better</h3>
             <div class="csv-container" id="content-bob"></div> <!-- Container for the table -->
+            <h3>All Time Lowest 9 Hole Gross Score</h3>
+            <div class="csv-container" id="content-low9"></div> <!-- Container for the table -->
         </section>
     </main>
     <footer>
         <p>Updated March 12, 2024</p>
+        <p>Stats only reflect league play</p>
         <p>&copy; 2024 Seis Tour Golf</p>
     </footer>
     <script>
@@ -91,13 +94,23 @@
             .catch(error => console.error('Error loading CSV file:', error));
     </script>
     <script>
-        // Hardcoded file name for wins leaders
+        // Hardcoded file name for bob leaders
         const bobFileName = 'SeisTourStats - AllTimeBOB.csv';
 
-        // Load CSV data for wins leaders
+        // Load CSV data for bob leaders
         fetch(bobFileName)
             .then(response => response.text())
             .then(csvData => displayCSV(csvData, 'content-bob'))
+            .catch(error => console.error('Error loading CSV file:', error));
+    </script>
+    <script>
+        // Hardcoded file name for low9 leaders
+        const low9FileName = 'SeisTourStats - AllTimeLow9.csv';
+
+        // Load CSV data for low9 leaders
+        fetch(low9FileName)
+            .then(response => response.text())
+            .then(csvData => displayCSV(csvData, 'content-low9'))
             .catch(error => console.error('Error loading CSV file:', error));
     </script>
 </body>
