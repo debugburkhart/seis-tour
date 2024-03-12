@@ -16,7 +16,7 @@
         <div>
         <img src="SeisTourLogo-removebg-preview.png" alt="Seis Tour" width="100" class="header img">
         <h1>Seis Tour Golf</h1>
-        <div/>
+        </div> <!-- Corrected closing tag -->
         <nav>
             <ul>
                 <li><a href="index.html">Home</a></li>
@@ -37,7 +37,13 @@
                 </nav>
             </h6>
             <!-- Add your rules content here -->
-             <script>
+            <div id="content"></div> <!-- Container for the table -->
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Seis Tour Golf</p>
+    </footer>
+    <script>
         // Hardcoded file name
         const fileName = 'SeisTourStats - 2023 Season Totals.csv';
 
@@ -67,10 +73,5 @@
             document.getElementById('content').appendChild(table);
         }
     </script>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2024 Seis Tour Golf</p>
-    </footer>
 </body>
 </html>
