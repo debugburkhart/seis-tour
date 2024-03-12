@@ -46,6 +46,8 @@
             <div class="csv-container" id="content-bob"></div> <!-- Container for the table -->
             <h3>All Time Lowest 9 Hole Gross Score</h3>
             <div class="csv-container" id="content-low9"></div> <!-- Container for the table -->
+            <h3>All Time Lowest 18 Hole Gross Score</h3>
+            <div class="csv-container" id="content-low18"></div> <!-- Container for the table -->
         </section>
     </main>
     <footer>
@@ -111,6 +113,16 @@
         fetch(low9FileName)
             .then(response => response.text())
             .then(csvData => displayCSV(csvData, 'content-low9'))
+            .catch(error => console.error('Error loading CSV file:', error));
+    </script>
+    <script>
+        // Hardcoded file name for low18 leaders
+        const low18FileName = 'SeisTourStats - AllTimeLow18.csv';
+
+        // Load CSV data for low18 leaders
+        fetch(low18FileName)
+            .then(response => response.text())
+            .then(csvData => displayCSV(csvData, 'content-low18'))
             .catch(error => console.error('Error loading CSV file:', error));
     </script>
 </body>
