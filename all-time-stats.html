@@ -28,19 +28,22 @@
     <main>
         <section id="stats" class="statslinks">
             <h2>All Time Stats</h2>
-            <h6> 
+            <h5> 
                 <nav> 
                     <ul>
                         <li><a href="stats.html">Current Season</a></li>
                         <li><a href="previous-season-stats.html">Previous Seasons</a></li>
                     </ul>
                 </nav>
-            </h6>
-            <!-- Add your rules content here -->
+            </h5>
+            
+            <!-- TABLES -->
             <h3>All Time Points Leaders</h3>
             <div class="csv-container" id="content"></div> <!-- Container for the table -->
             <h3>All Time Wins Leaders</h3>
             <div class="csv-container" id="content-wins"></div> <!-- Container for the table -->
+            <h3>All Time Birdies or Better</h3>
+            <div class="csv-container" id="content-bob"></div> <!-- Container for the table -->
         </section>
     </main>
     <footer>
@@ -84,6 +87,16 @@
         fetch(winsFileName)
             .then(response => response.text())
             .then(csvData => displayCSV(csvData, 'content-wins'))
+            .catch(error => console.error('Error loading CSV file:', error));
+    </script>
+    <script>
+        // Hardcoded file name for wins leaders
+        const winsFileName = 'SeisTourStats - AllTimeBOB.csv';
+
+        // Load CSV data for wins leaders
+        fetch(bobFileName)
+            .then(response => response.text())
+            .then(csvData => displayCSV(csvData, 'content-bob'))
             .catch(error => console.error('Error loading CSV file:', error));
     </script>
 </body>
