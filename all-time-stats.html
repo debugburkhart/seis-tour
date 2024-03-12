@@ -16,7 +16,7 @@
         <div>
         <img src="SeisTourLogo-removebg-preview.png" alt="Seis Tour" width="100" class="header img">
         <h1>Seis Tour Golf</h1>
-        <div/>
+        </div> <!-- Corrected closing tag -->
         <nav>
             <ul>
                 <li><a href="index.html">Home</a></li>
@@ -47,16 +47,16 @@
         <p>&copy; 2024 Seis Tour Golf</p>
     </footer>
     <script>
-        // Hardcoded file name
-        const fileName = 'SeisTourStats - AllTimePoints.csv';
+        // Hardcoded file name for points leaders
+        const pointsFileName = 'SeisTourStats - AllTimePoints.csv';
 
-        // Load CSV data based on file name
-        fetch(fileName)
+        // Load CSV data for points leaders
+        fetch(pointsFileName)
             .then(response => response.text())
-            .then(csvData => displayCSV(csvData))
+            .then(csvData => displayCSV(csvData, 'content'))
             .catch(error => console.error('Error loading CSV file:', error));
 
-        function displayCSV(contents) {
+        function displayCSV(contents, targetId) {
             const lines = contents.split('\n');
             const table = document.createElement('table');
 
@@ -73,38 +73,18 @@
                 table.appendChild(row);
             });
 
-            document.getElementById('content').appendChild(table);
+            document.getElementById(targetId).appendChild(table);
         }
     </script>
     <script>
-        // Hardcoded file name
-        const fileName = 'SeisTourStats - AllTimeWins.csv';
+        // Hardcoded file name for wins leaders
+        const winsFileName = 'SeisTourStats - AllTimeWins.csv';
 
-        // Load CSV data based on file name
-        fetch(fileName)
+        // Load CSV data for wins leaders
+        fetch(winsFileName)
             .then(response => response.text())
-            .then(csvData => displayCSV(csvData))
+            .then(csvData => displayCSV(csvData, 'content-wins'))
             .catch(error => console.error('Error loading CSV file:', error));
-
-        function displayCSV(contents) {
-            const lines = contents.split('\n');
-            const table = document.createElement('table');
-
-            lines.forEach((line, index) => {
-                const row = document.createElement('tr');
-                const cells = line.split(',');
-
-                cells.forEach(cell => {
-                    const cellElement = document.createElement('td');
-                    cellElement.textContent = cell.trim();
-                    row.appendChild(cellElement);
-                });
-
-                table.appendChild(row);
-            });
-
-            document.getElementById('content-wins').appendChild(table);
-        }
     </script>
 </body>
 </html>
