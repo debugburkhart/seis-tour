@@ -95,3 +95,7 @@ table td img {
     color: white;
     text-decoration: underline;
 }
+
+.csv-container {
+            margin-bottom: 20px; /* Adjust as needed */
+}
