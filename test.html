@@ -8,33 +8,23 @@
 </head>
 <body>
     <h1>CSV File Example</h1>
-    <input type="file" id="fileInput">
-    <div id="fileName"></div>
     <div id="content"></div>
 
     <script>
-        document.getElementById('fileInput').addEventListener('change', handleFileSelect, false);
+        // Hardcoded file name
+        const fileName = 'SeisTourStats - All Time.csv';
 
-        function handleFileSelect(event) {
-            const file = event.target.files[0];
-            const reader = new FileReader();
-
-            reader.onload = function (e) {
-                const contents = e.target.result;
-                displayCSV(contents);
-            };
-
-            reader.readAsText(file);
-
-            document.getElementById('fileName').textContent = `File selected: ${file.name}`;
-        }
+        // Load CSV data based on file name
+        fetch(fileName)
+            .then(response => response.text())
+            .then(csvData => displayCSV(csvData))
+            .catch(error => console.error('Error loading CSV file:', error));
 
         function displayCSV(contents) {
             const lines = contents.split('\n');
             const table = document.createElement('table');
 
             lines.forEach((line, index) => {
-                if (index === 0) return; // Skip header row
                 const row = document.createElement('tr');
                 const cells = line.split(',');
 
@@ -47,7 +37,6 @@
                 table.appendChild(row);
             });
 
-            document.getElementById('content').innerHTML = '';
             document.getElementById('content').appendChild(table);
         }
     </script>
