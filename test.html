@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSV File Example</title>
+</head>
+<body>
+    <h1>CSV File Example</h1>
+    <input type="file" id="fileInput">
+    <div id="fileName"></div>
+    <div id="content"></div>
+
+    <script>
+        document.getElementById('fileInput').addEventListener('change', handleFileSelect, false);
+
+        function handleFileSelect(event) {
+            const file = event.target.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                const contents = e.target.result;
+                displayCSV(contents);
+            };
+
+            reader.readAsText(file);
+
+            document.getElementById('fileName').textContent = `File selected: ${file.name}`;
+        }
+
+        function displayCSV(contents) {
+            const lines = contents.split('\n');
+            const table = document.createElement('table');
+
+            lines.forEach((line, index) => {
+                if (index === 0) return; // Skip header row
+                const row = document.createElement('tr');
+                const cells = line.split(',');
+
+                cells.forEach(cell => {
+                    const cellElement = document.createElement('td');
+                    cellElement.textContent = cell.trim();
+                    row.appendChild(cellElement);
+                });
+
+                table.appendChild(row);
+            });
+
+            document.getElementById('content').innerHTML = '';
+            document.getElementById('content').appendChild(table);
+        }
+    </script>
+</body>
+</html>
