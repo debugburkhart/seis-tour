@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSV File Example</title>
+</head>
+<body>
+    <h1>CSV File Example</h1>
+    <div id="content"></div>
+
+    <script>
+        // Hardcoded file name
+        const fileName = 'SeisTourStats - All Time.csv';
+
+        // Load CSV data based on file name
+        fetch(fileName)
+            .then(response => response.text())
+            .then(csvData => displayCSV(csvData))
+            .catch(error => console.error('Error loading CSV file:', error));
+
+        function displayCSV(contents) {
+            const lines = contents.split('\n');
+            const table = document.createElement('table');
+
+            lines.forEach((line, index) => {
+                const row = document.createElement('tr');
+                const cells = line.split(',');
+
+                cells.forEach(cell => {
+                    const cellElement = document.createElement('td');
+                    cellElement.textContent = cell.trim();
+                    row.appendChild(cellElement);
+                });
+
+                table.appendChild(row);
+            });
+
+            document.getElementById('content').appendChild(table);
+        }
+    </script>
+</body>
+</html>

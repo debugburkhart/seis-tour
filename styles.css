@@ -91,3 +91,6 @@ table td img {
     margin-right: 5px; /* Adjust the margin between the image and text */
 }
 
+.statslinks a {
+    color: white;
+}
