@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Seis Tour Golf - Rules</title>
+    <title>Seis Tour Golf - All Time Stats</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
@@ -14,8 +14,8 @@
 <body class="russo-one-regular">
     <header>
         <div>
-        <img src="SeisTourLogo-removebg-preview.png" alt="Seis Tour" width="100" class="header img">
-        <h1>Seis Tour Golf</h1>
+            <img src="SeisTourLogo-removebg-preview.png" alt="Seis Tour" width="100" class="header img">
+            <h1>Seis Tour Golf</h1>
         <div/>
         <nav>
             <ul>
@@ -36,13 +36,93 @@
                     </ul>
                 </nav>
             </h5>
-            <!-- Add your rules content here -->
-            <p>League Leaders.</p>
+            <!-- TABLES -->
+            <h3>All Time Points Leaders</h3>
+            <div class="csv-container" id="content"></div> <!-- Container for the table -->
+            <h3>All Time Wins Leaders</h3>
+            <div class="csv-container" id="content-wins"></div> <!-- Container for the table -->
+            <h3>All Time Birdies or Better</h3>
+            <div class="csv-container" id="content-bob"></div> <!-- Container for the table -->
+            <h3>All Time Lowest 9 Hole Gross Score</h3>
+            <div class="csv-container" id="content-low9"></div> <!-- Container for the table -->
+            <h3>All Time Lowest 18 Hole Gross Score</h3>
+            <div class="csv-container" id="content-low18"></div> <!-- Container for the table -->
         </section>
     </main>
     <footer>
         <p>Updated March 12, 2024</p>
+        <p>Stats only reflect league play</p>
         <p>&copy; 2024 Seis Tour Golf</p>
     </footer>
+    <script>
+        // Points csv
+        const pointsFileName = 'SeisTourStats - AllTimePoints.csv';
+
+        // Load csv data for points leaders
+        fetch(pointsFileName)
+            .then(response => response.text())
+            .then(csvData => displayCSV(csvData, 'content'))
+            .catch(error => console.error('Error loading CSV file:', error));
+
+        function displayCSV(contents, targetId) {
+            const lines = contents.split('\n');
+            const table = document.createElement('table');
+
+            lines.forEach((line, index) => {
+                const row = document.createElement('tr');
+                const cells = line.split(',');
+
+                cells.forEach(cell => {
+                    const cellElement = document.createElement('td');
+                    cellElement.textContent = cell.trim();
+                    row.appendChild(cellElement);
+                });
+
+                table.appendChild(row);
+            });
+
+            document.getElementById(targetId).appendChild(table);
+        }
+    </script>
+    <script>
+        // Wins csv
+        const winsFileName = 'SeisTourStats - AllTimeWins.csv';
+
+        // Load csv data for wins leaders
+        fetch(winsFileName)
+            .then(response => response.text())
+            .then(csvData => displayCSV(csvData, 'content-wins'))
+            .catch(error => console.error('Error loading CSV file:', error));
+    </script>
+    <script>
+        // Bob csv
+        const bobFileName = 'SeisTourStats - AllTimeBOB.csv';
+
+        // Load csv data for bob leaders
+        fetch(bobFileName)
+            .then(response => response.text())
+            .then(csvData => displayCSV(csvData, 'content-bob'))
+            .catch(error => console.error('Error loading CSV file:', error));
+    </script>
+    <script>
+        // Lowest 9 hole gross score csv
+        const low9FileName = 'SeisTourStats - AllTimeLow9.csv';
+
+        // Load csv data for low9 leaders
+        fetch(low9FileName)
+            .then(response => response.text())
+            .then(csvData => displayCSV(csvData, 'content-low9'))
+            .catch(error => console.error('Error loading CSV file:', error));
+    </script>
+    <script>
+        // Lowest 18 hole gross score csv
+        const low18FileName = 'SeisTourStats - AllTimeLow18.csv';
+
+        // Load csv data for low18 leaders
+        fetch(low18FileName)
+            .then(response => response.text())
+            .then(csvData => displayCSV(csvData, 'content-low18'))
+            .catch(error => console.error('Error loading CSV file:', error));
+    </script>
 </body>
 </html>
