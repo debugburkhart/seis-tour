@@ -14,8 +14,8 @@
 <body class="russo-one-regular">
     <header>
         <div>
-        <img src="SeisTourLogo-removebg-preview.png" alt="Seis Tour" width="100" class="header img">
-        <h1>Seis Tour Golf</h1>
+            <img src="SeisTourLogo-removebg-preview.png" alt="Seis Tour" width="100" class="header img">
+            <h1>Seis Tour Golf</h1>
         <div/>
         <nav>
             <ul>
@@ -37,20 +37,19 @@
                 </nav>
             </h5>
             <h3>2023</h3>
-            <!-- Add your rules content here -->
             <div id="content"></div> <!-- Container for the table -->
         </section>
     </main>
     <footer>
-        <p>Updated March 12, 2024</p>
+        <p>Updated March 13, 2024</p>
         <p>Stats only reflect league play</p>
         <p>&copy; 2024 Seis Tour Golf</p>
     </footer>
     <script>
-        // Hardcoded file name
+        // 2023 season totals csv
         const fileName = 'SeisTourStats - 2023 Season Totals.csv';
 
-        // Load CSV data based on file name
+        // Load csv data based on file name
         fetch(fileName)
             .then(response => response.text())
             .then(csvData => displayCSV(csvData))
