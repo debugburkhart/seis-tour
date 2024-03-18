@@ -89,25 +89,33 @@
             });
         }
     function sortTable(table, columnIndex) {
-    const rows = Array.from(table.querySelectorAll('tr:nth-child(n+2)'));
-    const sortType = isNaN(parseFloat(rows[0].cells[columnIndex].textContent)) ? 'alpha' : 'numeric';
+            const rows = Array.from(table.querySelectorAll('tr:nth-child(n+2)'));
+            const sortType = isNaN(parseFloat(rows[0].cells[columnIndex].textContent)) ? 'alpha' : 'numeric';
 
-    let sortOrder = table.getAttribute('data-sort-order') === 'desc' ? 'asc' : 'desc'; // Toggle sort order
-    table.setAttribute('data-sort-order', sortOrder); // Update sort order in table attribute
+            let sortOrder = table.getAttribute('data-sort-order') === 'desc' ? 'asc' : 'desc'; // Toggle sort order
+            table.setAttribute('data-sort-order', sortOrder); // Update sort order in table attribute
 
-    rows.sort((a, b) => {
-        const aValue = a.cells[columnIndex].textContent.trim();
-        const bValue = b.cells[columnIndex].textContent.trim();
+            rows.sort((a, b) => {
+                const aValue = a.cells[columnIndex].textContent.trim();
+                const bValue = b.cells[columnIndex].textContent.trim();
 
-        if (sortType === 'alpha') {
-            return sortOrder === 'desc' ? bValue.localeCompare(aValue) : aValue.localeCompare(bValue);
-        } else {
-            return sortOrder === 'desc' ? parseFloat(bValue) - parseFloat(aValue) : parseFloat(aValue) - parseFloat(bValue);
+                if (sortType === 'alpha') {
+                    return sortOrder === 'desc' ? bValue.localeCompare(aValue) : aValue.localeCompare(bValue);
+                } else {
+                    return sortOrder === 'desc' ? parseFloat(bValue) - parseFloat(aValue) : parseFloat(aValue) - parseFloat(bValue);
+                }
+            });
+
+            rows.forEach(row => table.appendChild(row));
+
+            // Update header with sorting indicator
+            const headers = table.querySelectorAll('th');
+            headers.forEach((header, index) => {
+                const arrowIcon = sortOrder === 'desc' ? '↓' : '↑'; // Use Unicode arrows
+                header.textContent = header.textContent.replace(/[\u2191\u2193]/g, ''); // Remove existing arrows
+                header.textContent += ` ${arrowIcon}`; // Add new arrow icon
+            });
         }
-    });
-
-    rows.forEach(row => table.appendChild(row));
-    }
     </script>
 </body>
 </html>
