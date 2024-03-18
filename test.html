@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flex Table Example</title>
+<style>
+  .flex-table {
+    display: flex;
+    flex-direction: column;
+  }
+  .flex-table-row {
+    display: flex;
+  }
+  .flex-table-cell {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ddd;
+  }
+</style>
+</head>
+<body>
+  <div class="flex-table">
+    <div class="flex-table-row">
+      <div class="flex-table-cell">Header 1</div>
+      <div class="flex-table-cell">Header 2</div>
+      <div class="flex-table-cell">Header 3</div>
+    </div>
+    <div class="flex-table-row">
+      <div class="flex-table-cell">Data 1</div>
+      <div class="flex-table-cell">Data 2</div>
+      <div class="flex-table-cell">Data 3</div>
+    </div>
+    <div class="flex-table-row">
+      <div class="flex-table-cell">Data 4</div>
+      <div class="flex-table-cell">Data 5</div>
+      <div class="flex-table-cell">Data 6</div>
+    </div>
+  </div>
+</body>
+</html>
