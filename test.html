@@ -7,7 +7,110 @@
 <style>
   .flex-table {
     display: flex;
+    flex-direction: column;<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sortable Flex Table</title>
+<style>
+  .flex-table {
+    display: flex;
     flex-direction: column;
+  }
+  .flex-table-row {
+    display: flex;
+  }
+  .flex-table-cell {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ddd;
+    cursor: pointer; /* Add cursor pointer for clickable cells */
+  }
+</style>
+</head>
+<body>
+  <div class="flex-table" id="sortable-table"></div>
+
+  <script>
+    const sortStates = {}; // Object to store sorting state for each column
+
+    async function loadCSV(url) {
+      const response = await fetch(url);
+      const data = await response.text();
+      return data;
+    }
+
+    function parseCSV(csvData) {
+      const rows = csvData.split('\n');
+      const headerRow = rows[0].split(',');
+
+      const table = document.getElementById('sortable-table');
+      table.innerHTML = ''; // Clear existing content
+
+      // Create header row
+      const headerRowElem = document.createElement('div');
+      headerRowElem.classList.add('flex-table-row');
+      headerRow.forEach(column => {
+        const cell = document.createElement('div');
+        cell.classList.add('flex-table-cell');
+        cell.textContent = column;
+        cell.onclick = () => sortTable(headerRow.indexOf(column));
+        headerRowElem.appendChild(cell);
+      });
+      table.appendChild(headerRowElem);
+
+      // Create data rows
+      for (let i = 1; i < rows.length; i++) {
+        const rowData = rows[i].split(',');
+        const dataRowElem = document.createElement('div');
+        dataRowElem.classList.add('flex-table-row');
+        rowData.forEach(value => {
+          const cell = document.createElement('div');
+          cell.classList.add('flex-table-cell');
+          cell.textContent = value;
+          dataRowElem.appendChild(cell);
+        });
+        table.appendChild(dataRowElem);
+      }
+    }
+
+    function sortTable(columnIndex) {
+      const table = document.getElementById('sortable-table');
+      const rows = Array.from(table.querySelectorAll('.flex-table-row')).slice(1); // Exclude header row
+
+      // Toggle sorting state for the column
+      sortStates[columnIndex] = sortStates[columnIndex] === 'asc' ? 'desc' : 'asc';
+
+      const sortedRows = rows.sort((a, b) => {
+        const aValue = a.children[columnIndex].textContent.trim();
+        const bValue = b.children[columnIndex].textContent.trim();
+
+        if (sortStates[columnIndex] === 'asc') {
+          return aValue.localeCompare(bValue);
+        } else if (sortStates[columnIndex] === 'desc') {
+          return bValue.localeCompare(aValue);
+        } else {
+          // Unsorted state, maintain current order
+          return 0;
+        }
+      });
+
+      table.innerHTML = ''; // Clear table content except header row
+
+      // Re-append sorted rows to the table
+      sortedRows.forEach(row => table.appendChild(row));
+    }
+
+    // Load and parse CSV data
+    const csvUrl = 'Seis Tour Stats - 2023 Season Totals.csv';
+    loadCSV(csvUrl)
+      .then(csvData => parseCSV(csvData))
+      .catch(error => console.error('Error loading CSV:', error));
+  </script>
+</body>
+</html>
+
   }
   .flex-table-row {
     display: flex;
