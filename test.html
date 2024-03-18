@@ -88,24 +88,23 @@
                 });
             });
         }
-
-        function sortTable(table, columnIndex) {
-            const rows = Array.from(table.querySelectorAll('tr:nth-child(n+2)'));
-            const sortType = isNaN(parseFloat(rows[0].cells[columnIndex].textContent)) ? 'alpha' : 'numeric';
-
-            rows.sort((a, b) => {
-                const aValue = a.cells[columnIndex].textContent.trim();
-                const bValue = b.cells[columnIndex].textContent.trim();
-
-                if (sortType === 'alpha') {
-                    return aValue.localeCompare(bValue);
-                } else {
-                    return parseFloat(aValue) - parseFloat(bValue);
-                }
-            });
-
-            rows.forEach(row => table.appendChild(row));
-        }
+    function sortTable(table, columnIndex) {
+        const rows = Array.from(table.querySelectorAll('tr:nth-child(n+2)'));
+        const sortType = isNaN(parseFloat(rows[0].cells[columnIndex].textContent)) ? 'alpha' : 'numeric';
+    
+        rows.sort((a, b) => {
+            const aValue = a.cells[columnIndex].textContent.trim();
+            const bValue = b.cells[columnIndex].textContent.trim();
+    
+            if (sortType === 'alpha') {
+                return bValue.localeCompare(aValue); // Descending for alphabetic
+            } else {
+                return parseFloat(bValue) - parseFloat(aValue); // Descending for numeric
+            }
+        });
+    
+        rows.forEach(row => table.appendChild(row));
+    }
     </script>
 </body>
 </html>
