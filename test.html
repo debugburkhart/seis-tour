@@ -45,16 +45,34 @@
   </div>
 
   <script>
+    const sortStates = {}; // Object to store sorting state for each column
+
     function sortTable(columnIndex) {
       const table = document.getElementById('sortable-table');
       const rows = Array.from(table.querySelectorAll('.flex-table-row')).slice(1); // Exclude header row
+      const headerRow = table.querySelector('.flex-table-row');
+
+      // Toggle sorting state for the column
+      sortStates[columnIndex] = sortStates[columnIndex] === 'asc' ? 'desc' : 'asc';
+
       const sortedRows = rows.sort((a, b) => {
         const aValue = a.children[columnIndex].textContent.trim();
         const bValue = b.children[columnIndex].textContent.trim();
-        return aValue.localeCompare(bValue);
+
+        if (sortStates[columnIndex] === 'asc') {
+          return aValue.localeCompare(bValue);
+        } else if (sortStates[columnIndex] === 'desc') {
+          return bValue.localeCompare(aValue);
+        } else {
+          // Unsorted state, maintain current order
+          return 0;
+        }
       });
 
-      table.innerHTML = ''; // Clear table content
+      // Re-append header row to the table
+      table.appendChild(headerRow);
+
+      table.innerHTML = ''; // Clear table content except header row
 
       // Re-append sorted rows to the table
       sortedRows.forEach(row => table.appendChild(row));
