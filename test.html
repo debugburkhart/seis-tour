@@ -13,7 +13,107 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sortable Flex Table</title><!DOCTYPE html>
+<html lang="en"><!DOCTYPE html>
 <html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seis Tour Stats</title>
+    <style>
+        /* Add CSS styles for the flex table here */
+        .flex-table {
+            display: flex;
+            flex-direction: column;
+            margin: 20px;
+        }
+        .flex-table-header, .flex-table-row {
+            display: flex;
+            border-bottom: 1px solid #ccc;
+            padding: 10px 0;
+        }
+        .flex-table-row > div {
+            flex: 1;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Seis Tour Stats - 2023 Season Totals</h1>
+    <div class="flex-table" id="flexTable">
+        <div class="flex-table-header">
+            <div class="sortable" data-column="0">Player Name</div>
+            <div class="sortable" data-column="1">Total Score</div>
+            <!-- Add more headers if needed -->
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const flexTable = document.getElementById('flexTable');
+
+            // Fetch and parse CSV data
+            fetch('https://raw.githubusercontent.com/debugburkhart/seis-tour/main/Seis%20Tour%20Stats%20-%202023%20Season%20Totals.csv')
+                .then(response => response.text())
+                .then(csvData => {
+                    const rows = csvData.split('\n').map(row => row.split(','));
+                    const headers = rows.shift();
+
+                    // Populate table headers
+                    const headerRow = document.createElement('div');
+                    headerRow.classList.add('flex-table-header');
+                    headers.forEach(header => {
+                        const div = document.createElement('div');
+                        div.textContent = header;
+                        headerRow.appendChild(div);
+                    });
+                    flexTable.appendChild(headerRow);
+
+                    // Populate table rows
+                    rows.forEach(rowData => {
+                        const row = document.createElement('div');
+                        row.classList.add('flex-table-row');
+                        rowData.forEach(cellData => {
+                            const div = document.createElement('div');
+                            div.textContent = cellData;
+                            row.appendChild(div);
+                        });
+                        flexTable.appendChild(row);
+                    });
+                })
+                .catch(error => console.error('Error fetching CSV:', error));
+
+            // Sort functionality
+            document.querySelectorAll('.sortable').forEach(header => {
+                header.addEventListener('click', () => {
+                    const column = parseInt(header.dataset.column);
+                    const rows = Array.from(flexTable.querySelectorAll('.flex-table-row'));
+
+                    rows.sort((a, b) => {
+                        const aValue = a.children[column].textContent.trim();
+                        const bValue = b.children[column].textContent.trim();
+                        return aValue.localeCompare(bValue, undefined, { numeric: true, sensitivity: 'base' });
+                    });
+
+                    flexTable.innerHTML = ''; // Clear existing rows
+
+                    const sortedHeader = document.createElement('div');
+                    sortedHeader.classList.add('flex-table-header');
+                    headers.forEach((header, index) => {
+                        const div = document.createElement('div');
+                        div.textContent = header;
+                        if (index === column) div.classList.add('sorted');
+                        sortedHeader.appendChild(div);
+                    });
+                    flexTable.appendChild(sortedHeader);
+
+                    rows.forEach(row => flexTable.appendChild(row));
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
