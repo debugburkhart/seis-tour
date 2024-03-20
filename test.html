@@ -10,13 +10,30 @@
     <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="SeisTourLogo.ico" type="image/x-icon">
+    <style>
+        th {
+            cursor: pointer;
+            background-color: #f2f2f2;
+            border-bottom: 2px solid #ddd;
+            padding: 8px;
+        }
+
+        th:hover {
+            background-color: #e6e6e6;
+        }
+
+        .sortable-arrow {
+            display: inline-block;
+            margin-left: 5px;
+        }
+    </style>
 </head>
 <body class="russo-one-regular">
     <header>
         <div>
             <img src="SeisTourLogo-removebg-preview.png" alt="Seis Tour" width="100" class="header img">
             <h1>Seis Tour Golf</h1>
-        <div/>
+        </div>
         <nav>
             <ul>
                 <li><a href="index.html">Home</a></li>
@@ -120,7 +137,7 @@
             headers.forEach((header, index) => {
                 header.textContent = headers[index].textContent.replace(/[\u2191\u2193]/g, ''); // Remove existing arrows
                 const arrowIcon = index === columnIndex ? (sortOrder === 'desc' ? '↓' : '↑') : ''; // Use Unicode arrows for sorted column
-                header.textContent += ` ${arrowIcon}`; // Add new arrow icon
+                header.innerHTML += ` <span class="sortable-arrow">${arrowIcon}</span>`; // Add new arrow icon
             });
         }
     </script>
