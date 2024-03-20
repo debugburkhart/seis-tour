@@ -50,30 +50,35 @@
         </section>
     </main>
     <footer>
-        <p>Updated March 12, 2024</p>
+        <p>Updated March 20, 2024</p>
         <p>Stats only reflect league play</p>
         <p>&copy; 2024 Seis Tour Golf</p>
     </footer>
-    <script>
-        // Points csv
-        const pointsFileName = 'SeisTourStats - AllTimePoints.csv';
+     <script>
+        // 2023 season totals csv
+        const fileName = 'SeisTourStats - AllTimeStats.csv';
 
-        // Load csv data for points leaders
-        fetch(pointsFileName)
+        // Load csv data based on file name
+        fetch(fileName)
             .then(response => response.text())
-            .then(csvData => displayCSV(csvData, 'content'))
+            .then(csvData => displayCSV(csvData))
             .catch(error => console.error('Error loading CSV file:', error));
 
-        function displayCSV(contents, targetId) {
+        function displayCSV(contents) {
             const lines = contents.split('\n');
             const table = document.createElement('table');
 
+            let headers = [];
             lines.forEach((line, index) => {
                 const row = document.createElement('tr');
                 const cells = line.split(',');
 
                 cells.forEach(cell => {
-                    const cellElement = document.createElement('td');
+                    if (index === 0) {
+                        headers.push(cell.trim());
+                    }
+
+                    const cellElement = document.createElement(index === 0 ? 'th' : 'td');
                     cellElement.textContent = cell.trim();
                     row.appendChild(cellElement);
                 });
@@ -81,28 +86,65 @@
                 table.appendChild(row);
             });
 
-            document.getElementById(targetId).appendChild(table);
+            document.getElementById('content').appendChild(table);
+
+            // Add static rank column
+            const rankColumnHeader = document.createElement('th');
+            rankColumnHeader.textContent = 'Rank';
+            table.querySelector('tr').insertBefore(rankColumnHeader, table.querySelector('th'));
+
+            // Populate static rank values
+            const rankCells = table.querySelectorAll('td:first-child');
+            rankCells.forEach((cell, index) => {
+                cell.textContent = index + 1;
+            });
+
+            // Add sorting functionality
+            headers.forEach((header, index) => {
+                const th = table.querySelector(`th:nth-child(${index + 2})`);
+                th.style.cursor = 'pointer';
+                th.addEventListener('click', () => {
+                    sortTable(table, index);
+                });
+            });
         }
-    </script>
-    <script>
-        // Wins csv
-        const winsFileName = 'SeisTourStats - AllTimeWins.csv';
 
-        // Load csv data for wins leaders
-        fetch(winsFileName)
-            .then(response => response.text())
-            .then(csvData => displayCSV(csvData, 'content-wins'))
-            .catch(error => console.error('Error loading CSV file:', error));
-    </script>
-    <script>
-        // Bob csv
-        const bobFileName = 'SeisTourStats - AllTimeBOB.csv';
+        let currentSortedColumn = null;
 
-        // Load csv data for bob leaders
-        fetch(bobFileName)
-            .then(response => response.text())
-            .then(csvData => displayCSV(csvData, 'content-bob'))
-            .catch(error => console.error('Error loading CSV file:', error));
+        function sortTable(table, columnIndex) {
+            const rows = Array.from(table.querySelectorAll('tr:nth-child(n+2)'));
+            const sortType = isNaN(parseFloat(rows[0].cells[columnIndex + 1].textContent)) ? 'alpha' : 'numeric';
+
+            let sortOrder = 'asc'; // Default to ascending order if first time sorting or different column
+            if (currentSortedColumn === columnIndex) {
+                sortOrder = table.getAttribute('data-sort-order') === 'desc' ? 'asc' : 'desc'; // Toggle sort order
+            }
+            table.setAttribute('data-sort-order', sortOrder); // Update sort order in table attribute
+            currentSortedColumn = columnIndex; // Update current sorted column
+
+            const sortedRows = rows.slice(1).sort((a, b) => {
+                const aValue = a.cells[columnIndex + 1].textContent.trim();
+                const bValue = b.cells[columnIndex + 1].textContent.trim();
+
+                if (sortType === 'alpha') {
+                    return sortOrder === 'desc' ? bValue.localeCompare(aValue) : aValue.localeCompare(bValue);
+                } else {
+                    return sortOrder === 'desc' ? parseFloat(bValue) - parseFloat(aValue) : parseFloat(aValue) - parseFloat(bValue);
+                }
+            });
+
+            const sortedTable = [rows[0], ...sortedRows]; // Include the header row
+
+            sortedTable.forEach(row => table.appendChild(row));
+
+            // Update header with sorting indicator
+            const headers = table.querySelectorAll('th');
+            headers.forEach((header, index) => {
+                header.textContent = headers[index].textContent.replace(/[\u2191\u2193]/g, ''); // Remove existing arrows
+                const arrowIcon = index === columnIndex + 1 ? (sortOrder === 'desc' ? '↓' : '↑') : ''; // Use Unicode arrows for sorted column
+                header.innerHTML += ` <span class="sortable-arrow">${arrowIcon}</span>`; // Add new arrow icon
+            });
+        }
     </script>
     <script>
         // Lowest 9 hole gross score csv
