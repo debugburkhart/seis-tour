@@ -10,13 +10,36 @@
     <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="SeisTourLogo.ico" type="image/x-icon">
+    <style>
+        th {
+            cursor: pointer;
+            background-color: #f2f2f2;
+            border-bottom: 2px solid #ddd;
+            padding: 8px;
+            color: black; /* Set header text color to black */
+        }
+
+        th:hover {
+            background-color: #e6e6e6;
+        }
+
+        .sortable-arrow {
+            display: inline-block;
+            margin-left: 5px;
+        }
+        
+        .rank-column {
+            color: #333; /* Rank column text color */
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body class="russo-one-regular">
     <header>
         <div>
             <img src="SeisTourLogo-removebg-preview.png" alt="Seis Tour" width="100" class="header img">
             <h1>Seis Tour Golf</h1>
-        <div/>
+        </div>
         <nav>
             <ul>
                 <li><a href="index.html">Home</a></li>
@@ -50,17 +73,16 @@
         <p>Stats only reflect league play</p>
         <p>&copy; 2024 Seis Tour Golf</p>
     </footer>
-     <script>
-        // 2023 season totals csv
-        const fileName = 'SeisTourStats - AllTimeStats.csv';
-
+    <script>
         // Load csv data based on file name
-        fetch(fileName)
-            .then(response => response.text())
-            .then(csvData => displayCSV(csvData))
-            .catch(error => console.error('Error loading CSV file:', error));
+        function loadCSV(fileName, containerId) {
+            fetch(fileName)
+                .then(response => response.text())
+                .then(csvData => displayCSV(csvData, containerId))
+                .catch(error => console.error('Error loading CSV file:', error));
+        }
 
-        function displayCSV(contents) {
+        function displayCSV(contents, containerId) {
             const lines = contents.split('\n');
             const table = document.createElement('table');
 
@@ -82,7 +104,7 @@
                 table.appendChild(row);
             });
 
-            document.getElementById('content').appendChild(table);
+            document.getElementById(containerId).appendChild(table);
 
             // Add static rank column
             const rankColumnHeader = document.createElement('th');
@@ -92,7 +114,10 @@
             // Populate static rank values
             const rankCells = table.querySelectorAll('td:first-child');
             rankCells.forEach((cell, index) => {
-                cell.textContent = index + 1;
+                const rankNumber = document.createElement('span');
+                rankNumber.textContent = index + 1;
+                rankNumber.classList.add('rank-column');
+                cell.insertBefore(rankNumber, cell.firstChild);
             });
 
             // Add sorting functionality
@@ -143,24 +168,14 @@
         }
     </script>
     <script>
+        // Load csv data for All Time Stats
+        loadCSV('SeisTourStats - AllTimeStats.csv', 'content');
+
         // Lowest 9 hole gross score csv
-        const low9FileName = 'SeisTourStats - AllTimeLow9.csv';
+        loadCSV('SeisTourStats - AllTimeLow9.csv', 'content-low9');
 
-        // Load csv data for low9 leaders
-        fetch(low9FileName)
-            .then(response => response.text())
-            .then(csvData => displayCSV(csvData, 'content-low9'))
-            .catch(error => console.error('Error loading CSV file:', error));
-    </script>
-    <script>
         // Lowest 18 hole gross score csv
-        const low18FileName = 'SeisTourStats - AllTimeLow18.csv';
-
-        // Load csv data for low18 leaders
-        fetch(low18FileName)
-            .then(response => response.text())
-            .then(csvData => displayCSV(csvData, 'content-low18'))
-            .catch(error => console.error('Error loading CSV file:', error));
+        loadCSV('SeisTourStats - AllTimeLow18.csv', 'content-low18');
     </script>
 </body>
 </html>
