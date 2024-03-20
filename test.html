@@ -88,6 +88,7 @@
                 });
             });
         }
+
         let currentSortedColumn = null;
 
         function sortTable(table, columnIndex) {
@@ -117,12 +118,10 @@
             // Update header with sorting indicator
             const headers = table.querySelectorAll('th');
             headers.forEach((header, index) => {
+                header.textContent = headers[index].textContent.replace(/[\u2191\u2193]/g, ''); // Remove existing arrows
                 const arrowIcon = index === columnIndex ? (sortOrder === 'desc' ? '↓' : '↑') : ''; // Use Unicode arrows for sorted column
-                header.textContent = header.textContent.replace(/[\u2191\u2193]/g, ''); // Remove existing arrows
                 header.textContent += ` ${arrowIcon}`; // Add new arrow icon
             });
-        }
-
         }
     </script>
 </body>
