@@ -16,7 +16,7 @@
             background-color: #f2f2f2;
             border-bottom: 2px solid #ddd;
             padding: 8px;
-            color: black;
+            color: black; /* Set header text color to black */
         }
 
         th:hover {
@@ -34,7 +34,7 @@
         <div>
             <img src="SeisTourLogo-removebg-preview.png" alt="Seis Tour" width="100" class="header img">
             <h1>Seis Tour Golf</h1>
-        <div/>
+        </div>
         <nav>
             <ul>
                 <li><a href="index.html">Home</a></li>
@@ -59,9 +59,8 @@
         </section>
     </main>
     <footer>
-        <p>Updated March 20, 2024</p>
+        <p>Updated March 13, 2024</p>
         <p>Stats only reflect league play</p>
-        <p>Click on headers to sort</p>
         <p>&copy; 2024 Seis Tour Golf</p>
     </footer>
     <script>
@@ -121,7 +120,13 @@
             table.setAttribute('data-sort-order', sortOrder); // Update sort order in table attribute
             currentSortedColumn = columnIndex; // Update current sorted column
 
+            const rankColumnIndex = 0; // Assuming rank column is always the first column
+
             rows.sort((a, b) => {
+                if (columnIndex === rankColumnIndex) {
+                    return 0; // Rank column remains unchanged
+                }
+
                 const aValue = a.cells[columnIndex].textContent.trim();
                 const bValue = b.cells[columnIndex].textContent.trim();
 
