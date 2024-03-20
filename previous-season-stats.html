@@ -10,6 +10,24 @@
     <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="SeisTourLogo.ico" type="image/x-icon">
+    <style>
+        th {
+            cursor: pointer;
+            background-color: #f2f2f2;
+            border-bottom: 2px solid #ddd;
+            padding: 8px;
+            color: black;
+        }
+
+        th:hover {
+            background-color: #e6e6e6;
+        }
+
+        .sortable-arrow {
+            display: inline-block;
+            margin-left: 5px;
+        }
+    </style>
 </head>
 <body class="russo-one-regular">
     <header>
@@ -41,8 +59,9 @@
         </section>
     </main>
     <footer>
-        <p>Updated March 13, 2024</p>
+        <p>Updated March 20, 2024</p>
         <p>Stats only reflect league play</p>
+        <p>Click on headers to sort</p>
         <p>&copy; 2024 Seis Tour Golf</p>
     </footer>
     <script>
@@ -59,12 +78,17 @@
             const lines = contents.split('\n');
             const table = document.createElement('table');
 
+            let headers = [];
             lines.forEach((line, index) => {
                 const row = document.createElement('tr');
                 const cells = line.split(',');
 
                 cells.forEach(cell => {
-                    const cellElement = document.createElement('td');
+                    if (index === 0) {
+                        headers.push(cell.trim());
+                    }
+
+                    const cellElement = document.createElement(index === 0 ? 'th' : 'td');
                     cellElement.textContent = cell.trim();
                     row.appendChild(cellElement);
                 });
@@ -73,6 +97,50 @@
             });
 
             document.getElementById('content').appendChild(table);
+
+            // Add sorting functionality
+            headers.forEach((header, index) => {
+                const th = table.querySelector(`th:nth-child(${index + 1})`);
+                th.style.cursor = 'pointer';
+                th.addEventListener('click', () => {
+                    sortTable(table, index);
+                });
+            });
+        }
+
+        let currentSortedColumn = null;
+
+        function sortTable(table, columnIndex) {
+            const rows = Array.from(table.querySelectorAll('tr:nth-child(n+2)'));
+            const sortType = isNaN(parseFloat(rows[0].cells[columnIndex].textContent)) ? 'alpha' : 'numeric';
+
+            let sortOrder = 'asc'; // Default to ascending order if first time sorting or different column
+            if (currentSortedColumn === columnIndex) {
+                sortOrder = table.getAttribute('data-sort-order') === 'desc' ? 'asc' : 'desc'; // Toggle sort order
+            }
+            table.setAttribute('data-sort-order', sortOrder); // Update sort order in table attribute
+            currentSortedColumn = columnIndex; // Update current sorted column
+
+            rows.sort((a, b) => {
+                const aValue = a.cells[columnIndex].textContent.trim();
+                const bValue = b.cells[columnIndex].textContent.trim();
+
+                if (sortType === 'alpha') {
+                    return sortOrder === 'desc' ? bValue.localeCompare(aValue) : aValue.localeCompare(bValue);
+                } else {
+                    return sortOrder === 'desc' ? parseFloat(bValue) - parseFloat(aValue) : parseFloat(aValue) - parseFloat(bValue);
+                }
+            });
+
+            rows.forEach(row => table.appendChild(row));
+
+            // Update header with sorting indicator
+            const headers = table.querySelectorAll('th');
+            headers.forEach((header, index) => {
+                header.textContent = headers[index].textContent.replace(/[\u2191\u2193]/g, ''); // Remove existing arrows
+                const arrowIcon = index === columnIndex ? (sortOrder === 'desc' ? '↓' : '↑') : ''; // Use Unicode arrows for sorted column
+                header.innerHTML += ` <span class="sortable-arrow">${arrowIcon}</span>`; // Add new arrow icon
+            });
         }
     </script>
 </body>
