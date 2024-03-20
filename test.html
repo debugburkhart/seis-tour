@@ -122,11 +122,7 @@
 
             const rankColumnIndex = 0; // Assuming rank column is always the first column
 
-            rows.sort((a, b) => {
-                if (columnIndex === rankColumnIndex) {
-                    return 0; // Rank column remains unchanged
-                }
-
+            const sortedRows = rows.slice(1).sort((a, b) => {
                 const aValue = a.cells[columnIndex].textContent.trim();
                 const bValue = b.cells[columnIndex].textContent.trim();
 
@@ -137,7 +133,9 @@
                 }
             });
 
-            rows.forEach(row => table.appendChild(row));
+            const sortedTable = [rows[0], ...sortedRows]; // Include the header row
+
+            sortedTable.forEach(row => table.appendChild(row));
 
             // Update header with sorting indicator
             const headers = table.querySelectorAll('th');
