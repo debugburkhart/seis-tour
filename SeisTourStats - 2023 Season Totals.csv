@@ -1,11 +1,11 @@
-Name,Birdies or Better,Wins,Lowest 9 Hole Gross,Lowest 18 Hole Gross,Points
-Corbin VandeSampel,1,4,44,100,51
-Trenton Terry,0,0,54,117,38
-Willie Terry,0,2,55,129,38
-Sam Burkhart,0,1,58,125,27
-Henry Burkhart,0,1,58,0,23
-TJ Arzola,0,1,65,138,22
-Logan Zarvell,0,1,57,134,20
-Simeon Campbell,0,2,49,111,20
-Griffin Tondreau,0,0,45,0,13
-Brady Zarvell,0,0,0,0,0
+Rank,Name,Points,Wins,Birdies or Better,Lowest 9 Hole Gross,Lowest 18 Hole Gross
+1,Corbin VandeSampel,51,4,1,44,100
+2,Trenton Terry,38,0,0,54,117
+3,Willie Terry,38,2,0,55,129
+4,Sam Burkhart,27,1,0,58,125
+5,Henry Burkhart,23,1,0,58,0
+6,TJ Arzola,22,1,0,65,138
+7,Logan Zarvell,20,1,0,57,134
+8,Simeon Campbell,20,2,0,49,111
+9,Griffin Tondreau,13,0,0,45,0
+10,Brady Zarvell,0,0,0,0,0
