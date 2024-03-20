@@ -88,12 +88,18 @@
                 });
             });
         }
-    function sortTable(table, columnIndex) {
+        let currentSortedColumn = null;
+
+        function sortTable(table, columnIndex) {
             const rows = Array.from(table.querySelectorAll('tr:nth-child(n+2)'));
             const sortType = isNaN(parseFloat(rows[0].cells[columnIndex].textContent)) ? 'alpha' : 'numeric';
 
-            let sortOrder = table.getAttribute('data-sort-order') === 'desc' ? 'asc' : 'desc'; // Toggle sort order
+            let sortOrder = 'asc'; // Default to ascending order if first time sorting or different column
+            if (currentSortedColumn === columnIndex) {
+                sortOrder = table.getAttribute('data-sort-order') === 'desc' ? 'asc' : 'desc'; // Toggle sort order
+            }
             table.setAttribute('data-sort-order', sortOrder); // Update sort order in table attribute
+            currentSortedColumn = columnIndex; // Update current sorted column
 
             rows.sort((a, b) => {
                 const aValue = a.cells[columnIndex].textContent.trim();
@@ -111,10 +117,12 @@
             // Update header with sorting indicator
             const headers = table.querySelectorAll('th');
             headers.forEach((header, index) => {
-                const arrowIcon = sortOrder === 'desc' ? '↓' : '↑'; // Use Unicode arrows
+                const arrowIcon = index === columnIndex ? (sortOrder === 'desc' ? '↓' : '↑') : ''; // Use Unicode arrows for sorted column
                 header.textContent = header.textContent.replace(/[\u2191\u2193]/g, ''); // Remove existing arrows
                 header.textContent += ` ${arrowIcon}`; // Add new arrow icon
             });
+        }
+
         }
     </script>
 </body>
