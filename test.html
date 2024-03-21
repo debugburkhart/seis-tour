@@ -16,7 +16,7 @@
             background-color: #f2f2f2;
             border-bottom: 2px solid #ddd;
             padding: 8px;
-            color: black; /* Set header text color to black */
+            color: black;
         }
 
         th:hover {
@@ -34,7 +34,7 @@
         <div>
             <img src="SeisTourLogo-removebg-preview.png" alt="Seis Tour" width="100" class="header img">
             <h1>Seis Tour Golf</h1>
-        </div>
+        <div/>
         <nav>
             <ul>
                 <li><a href="index.html">Home</a></li>
@@ -97,20 +97,9 @@
 
             document.getElementById('content').appendChild(table);
 
-            // Add static rank column
-            const rankColumnHeader = document.createElement('th');
-            rankColumnHeader.textContent = 'Rank';
-            table.querySelector('tr').insertBefore(rankColumnHeader, table.querySelector('th'));
-
-            // Populate static rank values
-            const rankCells = table.querySelectorAll('td:first-child');
-            rankCells.forEach((cell, index) => {
-                cell.textContent = index + 1;
-            });
-
             // Add sorting functionality
             headers.forEach((header, index) => {
-                const th = table.querySelector(`th:nth-child(${index + 2})`);
+                const th = table.querySelector(`th:nth-child(${index + 1})`);
                 th.style.cursor = 'pointer';
                 th.addEventListener('click', () => {
                     sortTable(table, index);
@@ -122,7 +111,7 @@
 
         function sortTable(table, columnIndex) {
             const rows = Array.from(table.querySelectorAll('tr:nth-child(n+2)'));
-            const sortType = isNaN(parseFloat(rows[0].cells[columnIndex + 1].textContent)) ? 'alpha' : 'numeric';
+            const sortType = isNaN(parseFloat(rows[0].cells[columnIndex].textContent)) ? 'alpha' : 'numeric';
 
             let sortOrder = 'asc'; // Default to ascending order if first time sorting or different column
             if (currentSortedColumn === columnIndex) {
@@ -131,9 +120,9 @@
             table.setAttribute('data-sort-order', sortOrder); // Update sort order in table attribute
             currentSortedColumn = columnIndex; // Update current sorted column
 
-            const sortedRows = rows.slice(1).sort((a, b) => {
-                const aValue = a.cells[columnIndex + 1].textContent.trim();
-                const bValue = b.cells[columnIndex + 1].textContent.trim();
+            rows.sort((a, b) => {
+                const aValue = a.cells[columnIndex].textContent.trim();
+                const bValue = b.cells[columnIndex].textContent.trim();
 
                 if (sortType === 'alpha') {
                     return sortOrder === 'desc' ? bValue.localeCompare(aValue) : aValue.localeCompare(bValue);
@@ -142,15 +131,13 @@
                 }
             });
 
-            const sortedTable = [rows[0], ...sortedRows]; // Include the header row
-
-            sortedTable.forEach(row => table.appendChild(row));
+            rows.forEach(row => table.appendChild(row));
 
             // Update header with sorting indicator
             const headers = table.querySelectorAll('th');
             headers.forEach((header, index) => {
                 header.textContent = headers[index].textContent.replace(/[\u2191\u2193]/g, ''); // Remove existing arrows
-                const arrowIcon = index === columnIndex + 1 ? (sortOrder === 'desc' ? '↓' : '↑') : ''; // Use Unicode arrows for sorted column
+                const arrowIcon = index === columnIndex ? (sortOrder === 'desc' ? '↓' : '↑') : ''; // Use Unicode arrows for sorted column
                 header.innerHTML += ` <span class="sortable-arrow">${arrowIcon}</span>`; // Add new arrow icon
             });
         }
