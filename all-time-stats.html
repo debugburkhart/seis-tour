@@ -10,36 +10,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="SeisTourLogo.ico" type="image/x-icon">
-    <style>
-        th {
-            cursor: pointer;
-            background-color: #f2f2f2;
-            border-bottom: 2px solid #ddd;
-            padding: 8px;
-            color: black; /* Set header text color to black */
-        }
-
-        th:hover {
-            background-color: #e6e6e6;
-        }
-
-        .sortable-arrow {
-            display: inline-block;
-            margin-left: 5px;
-        }
-        
-        .rank-column {
-            color: #333; /* Rank column text color */
-            font-weight: bold;
-        }
-    </style>
 </head>
 <body class="russo-one-regular">
     <header>
         <div>
             <img src="SeisTourLogo-removebg-preview.png" alt="Seis Tour" width="100" class="header img">
             <h1>Seis Tour Golf</h1>
-        </div>
+        <div/>
         <nav>
             <ul>
                 <li><a href="index.html">Home</a></li>
@@ -60,8 +37,12 @@
                 </nav>
             </h5>
             <!-- TABLES -->
-            <h3>All Time Stats</h3>
-            <div id="content"></div> <!-- Container for the table -->
+            <h3>All Time Points Leaders</h3>
+            <div class="csv-container" id="content"></div> <!-- Container for the table -->
+            <h3>All Time Wins Leaders</h3>
+            <div class="csv-container" id="content-wins"></div> <!-- Container for the table -->
+            <h3>All Time Birdies or Better</h3>
+            <div class="csv-container" id="content-bob"></div> <!-- Container for the table -->
             <h3>All Time Lowest 9 Hole Gross Score</h3>
             <div class="csv-container" id="content-low9"></div> <!-- Container for the table -->
             <h3>All Time Lowest 18 Hole Gross Score</h3>
@@ -69,36 +50,30 @@
         </section>
     </main>
     <footer>
-        <p>Updated March 20, 2024</p>
+        <p>Updated March 12, 2024</p>
         <p>Stats only reflect league play</p>
         <p>&copy; 2024 Seis Tour Golf</p>
     </footer>
     <script>
-        <script>
-        // 2023 season totals csv
-        const fileName = 'SeisTourStats - 2023 Season Totals.csv';
+        // Points csv
+        const pointsFileName = 'SeisTourStats - AllTimePoints.csv';
 
-        // Load csv data based on file name
-        fetch(fileName)
+        // Load csv data for points leaders
+        fetch(pointsFileName)
             .then(response => response.text())
-            .then(csvData => displayCSV(csvData))
+            .then(csvData => displayCSV(csvData, 'content'))
             .catch(error => console.error('Error loading CSV file:', error));
 
-        function displayCSV(contents) {
+        function displayCSV(contents, targetId) {
             const lines = contents.split('\n');
             const table = document.createElement('table');
 
-            let headers = [];
             lines.forEach((line, index) => {
                 const row = document.createElement('tr');
                 const cells = line.split(',');
 
                 cells.forEach(cell => {
-                    if (index === 0) {
-                        headers.push(cell.trim());
-                    }
-
-                    const cellElement = document.createElement(index === 0 ? 'th' : 'td');
+                    const cellElement = document.createElement('td');
                     cellElement.textContent = cell.trim();
                     row.appendChild(cellElement);
                 });
@@ -106,153 +81,48 @@
                 table.appendChild(row);
             });
 
-            document.getElementById('content').appendChild(table);
-
-            // Add sorting functionality
-            headers.forEach((header, index) => {
-                const th = table.querySelector(`th:nth-child(${index + 1})`);
-                th.style.cursor = 'pointer';
-                th.addEventListener('click', () => {
-                    sortTable(table, index);
-                });
-            });
-        }
-
-        let currentSortedColumn = null;
-
-        function sortTable(table, columnIndex) {
-            const rows = Array.from(table.querySelectorAll('tr:nth-child(n+2)'));
-            const sortType = isNaN(parseFloat(rows[0].cells[columnIndex].textContent)) ? 'alpha' : 'numeric';
-
-            let sortOrder = 'asc'; // Default to ascending order if first time sorting or different column
-            if (currentSortedColumn === columnIndex) {
-                sortOrder = table.getAttribute('data-sort-order') === 'desc' ? 'asc' : 'desc'; // Toggle sort order
-            }
-            table.setAttribute('data-sort-order', sortOrder); // Update sort order in table attribute
-            currentSortedColumn = columnIndex; // Update current sorted column
-
-            rows.sort((a, b) => {
-                const aValue = a.cells[columnIndex].textContent.trim();
-                const bValue = b.cells[columnIndex].textContent.trim();
-
-                if (sortType === 'alpha') {
-                    return sortOrder === 'desc' ? bValue.localeCompare(aValue) : aValue.localeCompare(bValue);
-                } else {
-                    return sortOrder === 'desc' ? parseFloat(bValue) - parseFloat(aValue) : parseFloat(aValue) - parseFloat(bValue);
-                }
-            });
-
-            rows.forEach(row => table.appendChild(row));
-
-            // Update header with sorting indicator
-            const headers = table.querySelectorAll('th');
-            headers.forEach((header, index) => {
-                header.textContent = headers[index].textContent.replace(/[\u2191\u2193]/g, ''); // Remove existing arrows
-                const arrowIcon = index === columnIndex ? (sortOrder === 'desc' ? '↓' : '↑') : ''; // Use Unicode arrows for sorted column
-                header.innerHTML += ` <span class="sortable-arrow">${arrowIcon}</span>`; // Add new arrow icon
-            });
-        }
-    </script> //NEW ^^^
-    <script>
-        // Load csv data based on file name
-        function loadCSV(fileName, containerId) {
-            fetch(fileName)
-                .then(response => response.text())
-                .then(csvData => displayCSV(csvData, containerId))
-                .catch(error => console.error('Error loading CSV file:', error));
-        }
-
-        function displayCSV(contents, containerId) {
-            const lines = contents.split('\n');
-            const table = document.createElement('table');
-
-            let headers = [];
-            lines.forEach((line, index) => {
-                const row = document.createElement('tr');
-                const cells = line.split(',');
-
-                cells.forEach(cell => {
-                    if (index === 0) {
-                        headers.push(cell.trim());
-                    }
-
-                    const cellElement = document.createElement(index === 0 ? 'th' : 'td');
-                    cellElement.textContent = cell.trim();
-                    row.appendChild(cellElement);
-                });
-
-                table.appendChild(row);
-            });
-
-            document.getElementById(containerId).appendChild(table);
-
-            // Add static rank column
-            const rankColumnHeader = document.createElement('th');
-            rankColumnHeader.textContent = 'Rank';
-            table.querySelector('tr').insertBefore(rankColumnHeader, table.querySelector('th'));
-
-            // Populate static rank values
-            const rankCells = table.querySelectorAll('td:first-child');
-            rankCells.forEach((cell, index) => {
-                const rankNumber = document.createElement('span');
-                rankNumber.textContent = index + 1;
-                rankNumber.classList.add('rank-column');
-                cell.insertBefore(rankNumber, cell.firstChild);
-            });
-
-            // Add sorting functionality
-            headers.forEach((header, index) => {
-                const th = table.querySelector(`th:nth-child(${index + 2})`);
-                th.style.cursor = 'pointer';
-                th.addEventListener('click', () => {
-                    sortTable(table, index);
-                });
-            });
-        }
-
-        let currentSortedColumn = null;
-
-        function sortTable(table, columnIndex) {
-            const rows = Array.from(table.querySelectorAll('tr:nth-child(n+2)'));
-            const sortType = isNaN(parseFloat(rows[0].cells[columnIndex + 1].textContent)) ? 'alpha' : 'numeric';
-
-            let sortOrder = 'asc'; // Default to ascending order if first time sorting or different column
-            if (currentSortedColumn === columnIndex) {
-                sortOrder = table.getAttribute('data-sort-order') === 'desc' ? 'asc' : 'desc'; // Toggle sort order
-            }
-            table.setAttribute('data-sort-order', sortOrder); // Update sort order in table attribute
-            currentSortedColumn = columnIndex; // Update current sorted column
-
-            const sortedRows = rows.slice(1).sort((a, b) => {
-                const aValue = a.cells[columnIndex + 1].textContent.trim();
-                const bValue = b.cells[columnIndex + 1].textContent.trim();
-
-                if (sortType === 'alpha') {
-                    return sortOrder === 'desc' ? bValue.localeCompare(aValue) : aValue.localeCompare(bValue);
-                } else {
-                    return sortOrder === 'desc' ? parseFloat(bValue) - parseFloat(aValue) : parseFloat(aValue) - parseFloat(bValue);
-                }
-            });
-
-            const sortedTable = [rows[0], ...sortedRows]; // Include the header row
-
-            sortedTable.forEach(row => table.appendChild(row));
-
-            // Update header with sorting indicator
-            const headers = table.querySelectorAll('th');
-            headers.forEach((header, index) => {
-                header.textContent = headers[index].textContent.replace(/[\u2191\u2193]/g, ''); // Remove existing arrows
-                const arrowIcon = index === columnIndex + 1 ? (sortOrder === 'desc' ? '↓' : '↑') : ''; // Use Unicode arrows for sorted column
-                header.innerHTML += ` <span class="sortable-arrow">${arrowIcon}</span>`; // Add new arrow icon
-            });
+            document.getElementById(targetId).appendChild(table);
         }
     </script>
     <script>
-        // Lowest 9 hole gross score csv
-        loadCSV('SeisTourStats - AllTimeLow9.csv', 'content-low9');
+        // Wins csv
+        const winsFileName = 'SeisTourStats - AllTimeWins.csv';
 
+        // Load csv data for wins leaders
+        fetch(winsFileName)
+            .then(response => response.text())
+            .then(csvData => displayCSV(csvData, 'content-wins'))
+            .catch(error => console.error('Error loading CSV file:', error));
+    </script>
+    <script>
+        // Bob csv
+        const bobFileName = 'SeisTourStats - AllTimeBOB.csv';
+
+        // Load csv data for bob leaders
+        fetch(bobFileName)
+            .then(response => response.text())
+            .then(csvData => displayCSV(csvData, 'content-bob'))
+            .catch(error => console.error('Error loading CSV file:', error));
+    </script>
+    <script>
+        // Lowest 9 hole gross score csv
+        const low9FileName = 'SeisTourStats - AllTimeLow9.csv';
+
+        // Load csv data for low9 leaders
+        fetch(low9FileName)
+            .then(response => response.text())
+            .then(csvData => displayCSV(csvData, 'content-low9'))
+            .catch(error => console.error('Error loading CSV file:', error));
+    </script>
+    <script>
         // Lowest 18 hole gross score csv
-        loadCSV('SeisTourStats - AllTimeLow18.csv', 'content-low18');
+        const low18FileName = 'SeisTourStats - AllTimeLow18.csv';
+
+        // Load csv data for low18 leaders
+        fetch(low18FileName)
+            .then(response => response.text())
+            .then(csvData => displayCSV(csvData, 'content-low18'))
+            .catch(error => console.error('Error loading CSV file:', error));
     </script>
 </body>
 </html>
