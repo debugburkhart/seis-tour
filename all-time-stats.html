@@ -37,12 +37,8 @@
                 </nav>
             </h5>
             <!-- TABLES -->
-            <h3>All Time Points Leaders</h3>
-            <div class="csv-container" id="content"></div> <!-- Container for the table -->
-            <h3>All Time Wins Leaders</h3>
-            <div class="csv-container" id="content-wins"></div> <!-- Container for the table -->
-            <h3>All Time Birdies or Better</h3>
-            <div class="csv-container" id="content-bob"></div> <!-- Container for the table -->
+            <h3>All Time Stats</h3>
+            <div id="content"></div> <!-- Container for the table -->
             <h3>All Time Lowest 9 Hole Gross Score</h3>
             <div class="csv-container" id="content-low9"></div> <!-- Container for the table -->
             <h3>All Time Lowest 18 Hole Gross Score</h3>
@@ -50,8 +46,9 @@
         </section>
     </main>
     <footer>
-        <p>Updated March 12, 2024</p>
+        <p>Updated March 20, 2024</p>
         <p>Stats only reflect league play</p>
+        <p>Click on headers to sort</p>
         <p>&copy; 2024 Seis Tour Golf</p>
     </footer>
     <script>
@@ -61,10 +58,10 @@
         // Load csv data based on file name
         fetch(fileName)
             .then(response => response.text())
-            .then(csvData => displayCSV(csvData))
+            .then(csvData => displayCSVs(csvData))
             .catch(error => console.error('Error loading CSV file:', error));
 
-        function displayCSV(contents) {
+        function displayCSVs(contents) {
             const lines = contents.split('\n');
             const table = document.createElement('table');
 
@@ -133,19 +130,8 @@
             });
         }
     </script>
-            // new
-            // Divide
-            // old
+        
     <script>
-        // Points csv
-        const pointsFileName = 'SeisTourStats - AllTimePoints.csv';
-
-        // Load csv data for points leaders
-        fetch(pointsFileName)
-            .then(response => response.text())
-            .then(csvData => displayCSV(csvData, 'content'))
-            .catch(error => console.error('Error loading CSV file:', error));
-
         function displayCSV(contents, targetId) {
             const lines = contents.split('\n');
             const table = document.createElement('table');
@@ -165,26 +151,6 @@
 
             document.getElementById(targetId).appendChild(table);
         }
-    </script>
-    <script>
-        // Wins csv
-        const winsFileName = 'SeisTourStats - AllTimeWins.csv';
-
-        // Load csv data for wins leaders
-        fetch(winsFileName)
-            .then(response => response.text())
-            .then(csvData => displayCSV(csvData, 'content-wins'))
-            .catch(error => console.error('Error loading CSV file:', error));
-    </script>
-    <script>
-        // Bob csv
-        const bobFileName = 'SeisTourStats - AllTimeBOB.csv';
-
-        // Load csv data for bob leaders
-        fetch(bobFileName)
-            .then(response => response.text())
-            .then(csvData => displayCSV(csvData, 'content-bob'))
-            .catch(error => console.error('Error loading CSV file:', error));
     </script>
     <script>
         // Lowest 9 hole gross score csv
