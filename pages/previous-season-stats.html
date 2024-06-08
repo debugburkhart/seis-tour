@@ -68,14 +68,14 @@
         // Base URL for GitHub Pages
         const baseURL = window.location.href.replace(/\/[^/]+$/, '/');
 
+        // 2023 season totals csv
+        const fileName = baseURL + '../csvs/SeisTourStats - 2023 Season Totals.csv';
+
         // Load csv data based on file name
-        function loadCSV() {
-            const fileName = baseURL + '../csvs/SeisTourStats - 2023 Season Totals.csv';
-            fetch(fileName)
-                .then(response => response.text())
-                .then(csvData => displayCSV(csvData))
-                .catch(error => console.error('Error loading CSV file:', error));
-        }
+        fetch(fileName)
+            .then(response => response.text())
+            .then(csvData => displayCSV(csvData))
+            .catch(error => console.error('Error loading CSV file:', error));
 
         function displayCSV(contents) {
             const lines = contents.split('\n');
@@ -109,16 +109,13 @@
                     sortTable(table, index);
                 });
             });
-
-            // Sort table by points in descending order
-            sortTable(table, headers.indexOf('points')); // Assuming 'points' is the column to sort by
         }
 
         let currentSortedColumn = null;
 
         function sortTable(table, columnIndex) {
             const rows = Array.from(table.querySelectorAll('tr:nth-child(n+2)'));
-            const sortType = 'numeric'; // Assume the points column is numeric
+            const sortType = isNaN(parseFloat(rows[0].cells[columnIndex].textContent)) ? 'alpha' : 'numeric';
 
             let sortOrder = 'desc'; // Default to descending order if first time sorting or different column
             if (currentSortedColumn === columnIndex) {
@@ -128,9 +125,14 @@
             currentSortedColumn = columnIndex; // Update current sorted column
 
             rows.sort((a, b) => {
-                const aValue = parseFloat(a.cells[columnIndex].textContent.trim());
-                const bValue = parseFloat(b.cells[columnIndex].textContent.trim());
-                return sortOrder === 'desc' ? bValue - aValue : aValue - bValue;
+                const aValue = a.cells[columnIndex].textContent.trim();
+                const bValue = b.cells[columnIndex].textContent.trim();
+
+                if (sortType === 'alpha') {
+                    return sortOrder === 'desc' ? bValue.localeCompare(aValue) : aValue.localeCompare(bValue);
+                } else {
+                    return sortOrder === 'desc' ? parseFloat(bValue) - parseFloat(aValue) : parseFloat(aValue) - parseFloat(bValue);
+                }
             });
 
             rows.forEach(row => table.appendChild(row));
@@ -143,9 +145,6 @@
                 header.innerHTML += ` <span class="sortable-arrow">${arrowIcon}</span>`; // Add new arrow icon
             });
         }
-
-        // Load CSV data on page load
-        loadCSV();
     </script>
 </body>
 </html>
