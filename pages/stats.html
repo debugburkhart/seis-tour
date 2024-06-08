@@ -40,15 +40,18 @@
         </section>
     </main>
     <footer>
-        <p>Updated June 3, 2024</p>
+        <p>Updated June 7, 2024</p>
         <p>&copy; 2024 Seis Tour Golf</p>
     </footer>
-     <script>
-        // 2023 season totals csv
-        const fileName = 'SeisTourStats - 2024 Season Totals.csv';
+    <script>
+        // Determine the base URL to load files relative to the current page
+        const baseURL = window.location.href.replace(/\/[^\/]*$/, '/');
 
-        // Load csv data based on file name
-        fetch(fileName)
+        // CSV file name relative to the base URL
+        const fileName = '../csvs/SeisTourStats - 2024 Season Totals.csv';
+
+        // Load csv data based on the complete file URL
+        fetch(baseURL + fileName)
             .then(response => response.text())
             .then(csvData => displayCSV(csvData))
             .catch(error => console.error('Error loading CSV file:', error));
