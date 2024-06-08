@@ -73,7 +73,7 @@
         const baseURL = window.location.href.replace(/\/[^\/]*$/, '/');
 
         // CSV file name relative to the base URL
-        const fileName = 'csvs/SeisTourStats - AllTimeStats.csv';
+        const fileName = '../csvs/SeisTourStats - AllTimeStats.csv';
 
         // Load csv data based on the complete file URL
         fetch(baseURL + fileName)
@@ -177,7 +177,7 @@
         const baseURL1 = window.location.href.replace(/\/[^\/]*$/, '/');
     
         // Lowest 9 hole gross score csv
-        const low9FileName = 'csvs/SeisTourStats - AllTimeLow9.csv';
+        const low9FileName = '../csvs/SeisTourStats - AllTimeLow9.csv';
     
         // Load csv data for low9 leaders based on the complete file URL
         fetch(baseURL1 + low9FileName)
@@ -187,7 +187,7 @@
     </script>
     <script>
         // Lowest 18 hole gross score csv
-        const low18FileName = 'csvs/SeisTourStats - AllTimeLow18.csv';
+        const low18FileName = '../csvs/SeisTourStats - AllTimeLow18.csv';
     
         // Load csv data for low18 leaders based on the complete file URL
         fetch(baseURL1 + low18FileName)
