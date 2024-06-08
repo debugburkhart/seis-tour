@@ -34,7 +34,7 @@
         <div>
             <img src="../images/SeisTourLogo-removebg-preview.png" alt="Seis Tour" width="100" class="header img">
             <h1>Seis Tour Golf</h1>
-        <div/>
+        </div>
         <nav>
             <ul>
                 <li><a href="../pages/index.html">Home</a></li>
@@ -49,7 +49,7 @@
             <h5> 
                 <nav> 
                     <ul>
-                        <li><a href="../pages/stats.html">Current Season</a></li>
+                        <li><a href="../stats.html">Current Season</a></li>
                         <li><a href="../pages/all-time-stats.html">All Time</a></li>
                     </ul>
                 </nav>
@@ -65,8 +65,11 @@
         <p>&copy; 2024 Seis Tour Golf</p>
     </footer>
     <script>
+        // Base URL for GitHub Pages
+        const baseURL = window.location.href.replace(/\/[^/]+$/, '/');
+
         // 2023 season totals csv
-        const fileName = 'SeisTourStats - 2023 Season Totals.csv';
+        const fileName = baseURL + 'SeisTourStats - 2023 Season Totals.csv';
 
         // Load csv data based on file name
         fetch(fileName)

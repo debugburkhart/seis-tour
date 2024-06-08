@@ -34,10 +34,10 @@
         <div>
             <img src="../images/SeisTourLogo-removebg-preview.png" alt="Seis Tour" width="100" class="header img">
             <h1>Seis Tour Golf</h1>
-        <div/>
+        </div>
         <nav>
             <ul>
-                <li><a href="../pages/index.html">Home</a></li>
+                <li><a href="../index.html">Home</a></li>
                 <li><a href="../pages/rules.html">Rules</a></li>
                 <li><a href="../pages/how-it-works.html">How it Works</a></li>
             </ul>
@@ -69,11 +69,14 @@
         <p>&copy; 2024 Seis Tour Golf</p>
     </footer>
     <script>
-        // 2023 season totals csv
-        const fileName = 'SeisTourStats - AllTimeStats.csv';
+        // Determine the base URL to load files relative to the current page
+        const baseURL = window.location.href.replace(/\/[^\/]*$/, '/');
 
-        // Load csv data based on file name
-        fetch(fileName)
+        // CSV file name relative to the base URL
+        const fileName = 'csvs/SeisTourStats - AllTimeStats.csv';
+
+        // Load csv data based on the complete file URL
+        fetch(baseURL + fileName)
             .then(response => response.text())
             .then(csvData => displayCSVs(csvData))
             .catch(error => console.error('Error loading CSV file:', error));
@@ -170,24 +173,28 @@
         }
     </script>
     <script>
+        // Determine the base URL to load files relative to the current page
+        const baseURL1 = window.location.href.replace(/\/[^\/]*$/, '/');
+    
         // Lowest 9 hole gross score csv
-        const low9FileName = 'SeisTourStats - AllTimeLow9.csv';
-
-        // Load csv data for low9 leaders
-        fetch(low9FileName)
+        const low9FileName = 'csvs/SeisTourStats - AllTimeLow9.csv';
+    
+        // Load csv data for low9 leaders based on the complete file URL
+        fetch(baseURL1 + low9FileName)
             .then(response => response.text())
             .then(csvData => displayCSV(csvData, 'content-low9'))
             .catch(error => console.error('Error loading CSV file:', error));
     </script>
     <script>
         // Lowest 18 hole gross score csv
-        const low18FileName = 'SeisTourStats - AllTimeLow18.csv';
-
-        // Load csv data for low18 leaders
-        fetch(low18FileName)
+        const low18FileName = 'csvs/SeisTourStats - AllTimeLow18.csv';
+    
+        // Load csv data for low18 leaders based on the complete file URL
+        fetch(baseURL1 + low18FileName)
             .then(response => response.text())
             .then(csvData => displayCSV(csvData, 'content-low18'))
             .catch(error => console.error('Error loading CSV file:', error));
     </script>
-</body>
-</html>
+    </body>
+    </html>
+    

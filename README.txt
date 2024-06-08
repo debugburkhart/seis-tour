@@ -14,4 +14,7 @@
             Cornfield Cup
             See iPad notes
         Event Pages
+        How it Works
+            links to specific pictures:
+                Seis Cup Playoffs -> png
         
