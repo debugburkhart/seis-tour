@@ -14,8 +14,12 @@
     NS: Sort by points upon 1st request
         Also make first click sort decending
 
+    NS: Competitions Tab
 
+    NS: Results Tab
 
+PATCH NOTES: 
+-removed 1 win from Sam, Logan, Simeon, and Corbin since Cornfield Cup wins are now a separate stat
 
     To Do:
         Player Profiles
