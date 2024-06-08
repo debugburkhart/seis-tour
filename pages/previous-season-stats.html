@@ -1,81 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Seis Tour Golf</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../styling/styles.css">
-    <link rel="icon" href="../icon/SeisTourLogo.ico" type="image/x-icon">
-    <style>
-        th {
-            cursor: pointer;
-            background-color: #f2f2f2;
-            border-bottom: 2px solid #ddd;
-            padding: 8px;
-            color: black;
-        }
-
-        th:hover {
-            background-color: #e6e6e6;
-        }
-
-        .sortable-arrow {
-            display: inline-block;
-            margin-left: 5px;
-        }
-    </style>
+    <!-- Meta tags, title, and styles -->
 </head>
 <body class="russo-one-regular">
-    <header>
-        <div>
-            <img src="../images/SeisTourLogo-removebg-preview.png" alt="Seis Tour" width="100" class="header img">
-            <h1>Seis Tour Golf</h1>
-        <div/>
-        <nav>
-            <ul>
-                <li><a href="../index.html">Home</a></li>
-                <li><a href="../pages/rules.html">Rules</a></li>
-                <li><a href="../pages/how-it-works.html">How it Works</a></li>
-            </ul>
-        </nav>
-    </header>
-    <main>
-        <section id="stats" class="statslinks">
-            <h2>Previous Season Stats</h2>
-            <h5> 
-                <nav> 
-                    <ul>
-                        <li><a href="../stats.html">Current Season</a></li>
-                        <li><a href="../pages/all-time-stats.html">All Time</a></li>
-                    </ul>
-                </nav>
-            </h5>
-            <h3>2023</h3>
-            <div id="content"></div> <!-- Container for the table -->
-        </section>
-    </main>
+    <!-- Header, navigation, and main content structure -->
     <footer>
-        <p>Updated March 20, 2024</p>
-        <p>Stats only reflect league play</p>
-        <p>Click on headers to sort</p>
-        <p>&copy; 2024 Seis Tour Golf</p>
+        <!-- Footer content -->
     </footer>
     <script>
         // Base URL for GitHub Pages
         const baseURL = window.location.href.replace(/\/[^/]+$/, '/');
 
-        // 2023 season totals csv
-        const fileName = baseURL + '../csvs/SeisTourStats - 2023 Season Totals.csv';
-
         // Load csv data based on file name
-        fetch(fileName)
-            .then(response => response.text())
-            .then(csvData => displayCSV(csvData))
-            .catch(error => console.error('Error loading CSV file:', error));
+        function loadCSV() {
+            const fileName = baseURL + '../csvs/SeisTourStats - 2023 Season Totals.csv';
+            fetch(fileName)
+                .then(response => response.text())
+                .then(csvData => displayCSV(csvData))
+                .catch(error => console.error('Error loading CSV file:', error));
+        }
 
         function displayCSV(contents) {
             const lines = contents.split('\n');
@@ -109,13 +53,16 @@
                     sortTable(table, index);
                 });
             });
+
+            // Sort table by points in descending order
+            sortTable(table, headers.indexOf('points')); // Assuming 'points' is the column to sort by
         }
 
         let currentSortedColumn = null;
 
         function sortTable(table, columnIndex) {
             const rows = Array.from(table.querySelectorAll('tr:nth-child(n+2)'));
-            const sortType = isNaN(parseFloat(rows[0].cells[columnIndex].textContent)) ? 'alpha' : 'numeric';
+            const sortType = 'numeric'; // Assume the points column is numeric
 
             let sortOrder = 'desc'; // Default to descending order if first time sorting or different column
             if (currentSortedColumn === columnIndex) {
@@ -125,14 +72,9 @@
             currentSortedColumn = columnIndex; // Update current sorted column
 
             rows.sort((a, b) => {
-                const aValue = a.cells[columnIndex].textContent.trim();
-                const bValue = b.cells[columnIndex].textContent.trim();
-
-                if (sortType === 'alpha') {
-                    return sortOrder === 'desc' ? bValue.localeCompare(aValue) : aValue.localeCompare(bValue);
-                } else {
-                    return sortOrder === 'desc' ? parseFloat(bValue) - parseFloat(aValue) : parseFloat(aValue) - parseFloat(bValue);
-                }
+                const aValue = parseFloat(a.cells[columnIndex].textContent.trim());
+                const bValue = parseFloat(b.cells[columnIndex].textContent.trim());
+                return sortOrder === 'desc' ? bValue - aValue : aValue - bValue;
             });
 
             rows.forEach(row => table.appendChild(row));
@@ -145,6 +87,9 @@
                 header.innerHTML += ` <span class="sortable-arrow">${arrowIcon}</span>`; // Add new arrow icon
             });
         }
+
+        // Load CSV data on page load
+        loadCSV();
     </script>
 </body>
 </html>

@@ -114,7 +114,7 @@
             const rows = Array.from(table.querySelectorAll('tr:nth-child(n+2)'));
             const sortType = isNaN(parseFloat(rows[0].cells[columnIndex].textContent)) ? 'alpha' : 'numeric';
 
-            let sortOrder = 'asc'; // Default to ascending order if first time sorting or different column
+            let sortOrder = 'desc'; // Default to ascending order if first time sorting or different column
             if (currentSortedColumn === columnIndex) {
                 sortOrder = table.getAttribute('data-sort-order') === 'desc' ? 'asc' : 'desc'; // Toggle sort order
             }

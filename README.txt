@@ -20,6 +20,7 @@
     To Do:
         Player Profiles
             >pages/players/sam.html
+            stats line graph (trend)
         Results Tab
         Competitions Tab
             Seis Tour
