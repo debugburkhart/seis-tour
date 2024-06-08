@@ -5,6 +5,15 @@
 
     NS: rankings
         Desc: get ranking numbers on stat pages
+        pages:
+            index
+            stats
+            prev szn stats
+            all time
+
+    NS: Sort by points upon 1st request
+        Also make first click sort decending
+
 
 
 
