@@ -25,6 +25,10 @@ PATCH NOTES:
         Player Profiles
             >pages/players/sam.html
             stats line graph (trend)
+            Major Finishes
+            Point Finishes
+            BoB 
+            Wins(Majors/Championships)
         Results Tab
         Competitions Tab
             Seis Tour
