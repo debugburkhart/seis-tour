@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../styling/styles.css">
-    <link rel="icon" href="SeisTourLogo.ico" type="image/x-icon">
+    <link rel="icon" href="../icon/SeisTourLogo.ico" type="image/x-icon">
      <style>
         th {
             cursor: pointer;
@@ -32,7 +32,7 @@
 <body class="russo-one-regular">
     <header>
         <div>
-            <img src="SeisTourLogo-removebg-preview.png" alt="Seis Tour" width="100" class="header img">
+            <img src="../images/SeisTourLogo-removebg-preview.png" alt="Seis Tour" width="100" class="header img">
             <h1>Seis Tour Golf</h1>
         <div/>
         <nav>
@@ -70,7 +70,7 @@
     </footer>
     <script>
         // 2023 season totals csv
-        const fileName = 'SeisTourStats - AllTimeStats.csv';
+        const fileName = '../csvs/SeisTourStats - AllTimeStats.csv';
 
         // Load csv data based on file name
         fetch(fileName)
@@ -171,7 +171,7 @@
     </script>
     <script>
         // Lowest 9 hole gross score csv
-        const low9FileName = 'SeisTourStats - AllTimeLow9.csv';
+        const low9FileName = '../csvs/SeisTourStats - AllTimeLow9.csv';
 
         // Load csv data for low9 leaders
         fetch(low9FileName)
@@ -181,7 +181,7 @@
     </script>
     <script>
         // Lowest 18 hole gross score csv
-        const low18FileName = 'SeisTourStats - AllTimeLow18.csv';
+        const low18FileName = '../csvs/SeisTourStats - AllTimeLow18.csv';
 
         // Load csv data for low18 leaders
         fetch(low18FileName)
