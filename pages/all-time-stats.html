@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Seis Tour Golf</title>
+    <title>Seis Tour Golf - All Time Stats</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../styling/styles.css">
-    <link rel="icon" href="../icon/SeisTourLogo.ico" type="image/x-icon">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="SeisTourLogo.ico" type="image/x-icon">
      <style>
         th {
             cursor: pointer;
@@ -32,29 +32,29 @@
 <body class="russo-one-regular">
     <header>
         <div>
-            <img src="../images/SeisTourLogo-removebg-preview.png" alt="Seis Tour" width="100" class="header img">
+            <img src="SeisTourLogo-removebg-preview.png" alt="Seis Tour" width="100" class="header img">
             <h1>Seis Tour Golf</h1>
         <div/>
         <nav>
             <ul>
-                <li><a href="../index.html">Home</a></li>
-                <li><a href="../pages/rules.html">Rules</a></li>
-                <li><a href="../pages/how-it-works.html">How it Works</a></li>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="rules.html">Rules</a></li>
+                <li><a href="how-it-works.html">How it Works</a></li>
             </ul>
         </nav>
     </header>
     <main>
         <section id="stats" class="statslinks">
-            <h2>All Time Stats</h2>
             <h5> 
                 <nav> 
                     <ul>
-                        <li><a href="../pages/stats.html">Current Season</a></li>
-                        <li><a href="../pages/previous-season-stats.html">Previous Seasons</a></li>
+                        <li><a href="stats.html">Current Season</a></li>
+                        <li><a href="previous-season-stats.html">Previous Seasons</a></li>
                     </ul>
                 </nav>
             </h5>
             <!-- TABLES -->
+            <h2>All Time Stats</h2>
             <div class="csv-container" id="content"></div> <!-- Container for the table -->
             <h3>All Time Lowest 9 Hole Gross Score</h3>
             <div class="csv-container" id="content-low9"></div> <!-- Container for the table -->
@@ -63,20 +63,17 @@
         </section>
     </main>
     <footer>
-        <p>Updated June 3, 2024</p>
+        <p>Updated September 20, 2024</p>
         <p>Stats only reflect league play</p>
         <p>Click on headers to sort</p>
         <p>&copy; 2024 Seis Tour Golf</p>
     </footer>
     <script>
-        // Determine the base URL to load files relative to the current page
-        const baseURL = window.location.href.replace(/\/[^\/]*$/, '/');
+        // 2023 season totals csv
+        const fileName = 'SeisTourStats - AllTimeStats.csv';
 
-        // CSV file name relative to the base URL
-        const fileName = '../csvs/SeisTourStats - AllTimeStats.csv';
-
-        // Load csv data based on the complete file URL
-        fetch(baseURL + fileName)
+        // Load csv data based on file name
+        fetch(fileName)
             .then(response => response.text())
             .then(csvData => displayCSVs(csvData))
             .catch(error => console.error('Error loading CSV file:', error));
@@ -121,7 +118,7 @@
             const rows = Array.from(table.querySelectorAll('tr:nth-child(n+2)'));
             const sortType = isNaN(parseFloat(rows[0].cells[columnIndex].textContent)) ? 'alpha' : 'numeric';
 
-            let sortOrder = 'desc'; // Default to ascending order if first time sorting or different column
+            let sortOrder = 'asc'; // Default to ascending order if first time sorting or different column
             if (currentSortedColumn === columnIndex) {
                 sortOrder = table.getAttribute('data-sort-order') === 'desc' ? 'asc' : 'desc'; // Toggle sort order
             }
@@ -173,28 +170,24 @@
         }
     </script>
     <script>
-        // Determine the base URL to load files relative to the current page
-        const baseURL1 = window.location.href.replace(/\/[^\/]*$/, '/');
-    
         // Lowest 9 hole gross score csv
-        const low9FileName = '../csvs/SeisTourStats - AllTimeLow9.csv';
-    
-        // Load csv data for low9 leaders based on the complete file URL
-        fetch(baseURL1 + low9FileName)
+        const low9FileName = 'SeisTourStats - AllTimeLow9.csv';
+
+        // Load csv data for low9 leaders
+        fetch(low9FileName)
             .then(response => response.text())
             .then(csvData => displayCSV(csvData, 'content-low9'))
             .catch(error => console.error('Error loading CSV file:', error));
     </script>
     <script>
         // Lowest 18 hole gross score csv
-        const low18FileName = '../csvs/SeisTourStats - AllTimeLow18.csv';
-    
-        // Load csv data for low18 leaders based on the complete file URL
-        fetch(baseURL1 + low18FileName)
+        const low18FileName = 'SeisTourStats - AllTimeLow18.csv';
+
+        // Load csv data for low18 leaders
+        fetch(low18FileName)
             .then(response => response.text())
             .then(csvData => displayCSV(csvData, 'content-low18'))
             .catch(error => console.error('Error loading CSV file:', error));
     </script>
-    </body>
-    </html>
-    
+</body>
+</html>
