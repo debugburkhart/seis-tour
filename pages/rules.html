@@ -10,6 +10,52 @@
     <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../styling/styles.css">
     <link rel="icon" href="../icon/SeisTourLogo.ico" type="image/x-icon">
+    <style>
+        /* Basic styling for nav bar */
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li {
+            display: inline-block;
+            position: relative;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            padding: 10px;
+            color: black;
+        }
+
+        /* Dropdown container */
+        .dropdown {
+            display: none;
+            position: absolute;
+            background-color: white;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+            min-width: 160px;
+        }
+
+        /* Dropdown items */
+        .dropdown a {
+            display: block;
+            padding: 10px;
+            color: black;
+            text-decoration: none;
+        }
+
+        .dropdown a:hover {
+            background-color: #ddd;
+        }
+
+        /* Show dropdown when clicked */
+        .show {
+            display: block;
+        }
+    </style>
 </head>
 <body class="russo-one-regular">
     <header>
@@ -20,7 +66,13 @@
         <nav>
             <ul>
                 <li><a href="../index.html">Home</a></li>
-                <li><a href="../pages/stats.html">Stats</a></li>
+                <li>
+                    <a href="#" id="stats-link">Stats</a>
+                    <div class="dropdown" id="stats-dropdown">
+                        <a href="../pages/all-time-stats.html">League Leaders</a>
+                        <a href="../pages/previous-season-stats.html">Previous Seasons</a>
+                    </div>
+                </li>
                 <li><a href="../pages/how-it-works.html">How it Works</a></li>
             </ul>
         </nav>
@@ -32,8 +84,29 @@
         </section>
     </main>
     <footer>
-        <p>Updated March 13, 2024</p>
+        <p>Updated Septermber 22, 2024</p>
         <p>&copy; 2024 Seis Tour Golf</p>
     </footer>
+    <script>
+        // Toggle the dropdown menu when the "Stats" link is clicked
+        document.getElementById('stats-link').addEventListener('click', function(event) {
+            event.preventDefault();  // Prevent the default anchor action
+            const dropdown = document.getElementById('stats-dropdown');
+            dropdown.classList.toggle('show');  // Toggle the 'show' class to display or hide the dropdown
+        });
+
+        // Close the dropdown if the user clicks outside of it
+        window.addEventListener('click', function(event) {
+            if (!event.target.matches('#stats-link')) {
+                const dropdowns = document.getElementsByClassName('dropdown');
+                for (let i = 0; i < dropdowns.length; i++) {
+                    let openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        });
+    </script>
 </body>
 </html>
