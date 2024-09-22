@@ -44,64 +44,97 @@
         </nav>
     </header>
     <main>
+        <!-- Dropdown for selecting the year -->
+        <section>
+            <label for="year-select">Select Season:</label>
+            <select id="year-select">
+                <option value="2024" selected>2024</option> <!-- Set 2024 as default -->
+                <option value="2023">2023</option>
+            </select>
+        </section>
+
+        <!-- Section to display stats -->
         <section id="stats" class="statslinks">
-            <h2>Previous Season Stats</h2>
-            <h5> 
-                <nav> 
-                    <ul>
-                        <li><a href="stats.html">Current Season</a></li>
-                        <li><a href="all-time-stats.html">All Time</a></li>
-                    </ul>
-                </nav>
-            </h5>
-            <h3>2023</h3>
+            <h2 id="season-title"></h2>
             <div id="content"></div> <!-- Container for the table -->
         </section>
     </main>
     <footer>
-        <p>Updated March 20, 2024</p>
+        <p>Updated September 22, 2024</p>
         <p>Stats only reflect league play</p>
         <p>Click on headers to sort</p>
         <p>&copy; 2024 Seis Tour Golf</p>
     </footer>
+
     <script>
         // Base URL for GitHub Pages
         const baseURL = window.location.href.replace(/\/[^/]+$/, '/');
 
-        // 2023 season totals csv
-        const fileName = baseURL + '../csvs/SeisTourStats - 2023 Season Totals.csv';
+        // CSV file paths for each year
+        const csvFiles = {
+            "2024": baseURL + '../csvs/SeisTourStats%20-%202024%20Season%20Totals.csv',
+            "2023": baseURL + '../csvs/SeisTourStats%20-%202023%20Season%20Totals.csv'
+        };
 
-        // Load csv data based on file name
-        fetch(fileName)
-            .then(response => response.text())
-            .then(csvData => displayCSV(csvData))
-            .catch(error => console.error('Error loading CSV file:', error));
+        // Select DOM elements
+        const yearSelect = document.getElementById('year-select');
+        const seasonTitle = document.getElementById('season-title');
+        const content = document.getElementById('content');
 
+        // Event listener for dropdown menu
+        yearSelect.addEventListener('change', () => {
+            const selectedYear = yearSelect.value;
+            loadCSV(csvFiles[selectedYear], selectedYear);
+        });
+
+        // Load CSV data based on selected year
+        function loadCSV(fileName, year) {
+            fetch(fileName)
+                .then(response => response.text())
+                .then(csvData => {
+                    content.innerHTML = ''; // Clear previous table
+                    seasonTitle.textContent = `${year} Season Stats`; // Update title
+                    displayCSV(csvData);
+                })
+                .catch(error => console.error('Error loading CSV file:', error));
+        }
+
+        // Display CSV data in a table with alternating row colors
         function displayCSV(contents) {
             const lines = contents.split('\n');
             const table = document.createElement('table');
-
             let headers = [];
             lines.forEach((line, index) => {
                 const row = document.createElement('tr');
                 const cells = line.split(',');
 
                 cells.forEach(cell => {
-                    if (index === 0) {
-                        headers.push(cell.trim());
-                    }
-
                     const cellElement = document.createElement(index === 0 ? 'th' : 'td');
                     cellElement.textContent = cell.trim();
                     row.appendChild(cellElement);
                 });
 
                 table.appendChild(row);
+                if (index === 0) headers = cells;  // Populate headers
             });
 
-            document.getElementById('content').appendChild(table);
+            content.appendChild(table);
+            addSortingFunctionality(table, headers);
+            applyRowColors(table);  // Apply row colors initially
+        }
 
-            // Add sorting functionality
+        // Function to apply alternating row colors
+        function applyRowColors(table) {
+            const rows = table.querySelectorAll('tr');
+            rows.forEach((row, index) => {
+                const isOddRow = index % 2 !== 0;
+                row.style.backgroundColor = isOddRow ? 'black' : 'white';
+                row.style.color = isOddRow ? 'white' : 'black';
+            });
+        }
+
+        // Add sorting functionality
+        function addSortingFunctionality(table, headers) {
             headers.forEach((header, index) => {
                 const th = table.querySelector(`th:nth-child(${index + 1})`);
                 th.style.cursor = 'pointer';
@@ -113,16 +146,17 @@
 
         let currentSortedColumn = null;
 
+        // Sort table rows by the clicked column
         function sortTable(table, columnIndex) {
             const rows = Array.from(table.querySelectorAll('tr:nth-child(n+2)'));
             const sortType = isNaN(parseFloat(rows[0].cells[columnIndex].textContent)) ? 'alpha' : 'numeric';
 
-            let sortOrder = 'desc'; // Default to descending order if first time sorting or different column
+            let sortOrder = 'desc';
             if (currentSortedColumn === columnIndex) {
-                sortOrder = table.getAttribute('data-sort-order') === 'desc' ? 'asc' : 'desc'; // Toggle sort order
+                sortOrder = table.getAttribute('data-sort-order') === 'desc' ? 'asc' : 'desc';
             }
-            table.setAttribute('data-sort-order', sortOrder); // Update sort order in table attribute
-            currentSortedColumn = columnIndex; // Update current sorted column
+            table.setAttribute('data-sort-order', sortOrder);
+            currentSortedColumn = columnIndex;
 
             rows.sort((a, b) => {
                 const aValue = a.cells[columnIndex].textContent.trim();
@@ -137,14 +171,19 @@
 
             rows.forEach(row => table.appendChild(row));
 
-            // Update header with sorting indicator
             const headers = table.querySelectorAll('th');
             headers.forEach((header, index) => {
-                header.textContent = headers[index].textContent.replace(/[\u2191\u2193]/g, ''); // Remove existing arrows
-                const arrowIcon = index === columnIndex ? (sortOrder === 'desc' ? '↓' : '↑') : ''; // Use Unicode arrows for sorted column
-                header.innerHTML += ` <span class="sortable-arrow">${arrowIcon}</span>`; // Add new arrow icon
+                header.textContent = headers[index].textContent.replace(/[\u2191\u2193]/g, '');
+                const arrowIcon = index === columnIndex ? (sortOrder === 'desc' ? '↓' : '↑') : '';
+                header.innerHTML += ` <span class="sortable-arrow">${arrowIcon}</span>`;
             });
+
+            // Reapply the row colors after sorting
+            applyRowColors(table);
         }
+
+        // Initially load the stats for 2024
+        loadCSV(csvFiles["2024"], "2024");
     </script>
 </body>
 </html>
