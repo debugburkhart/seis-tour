@@ -7,7 +7,7 @@ body, h1, h2, h3, p, ul, li {
 
 body {
     margin: 0; /* Remove default body margin */
-    padding-top: 4rem; /* Add padding-top to body to push main content down */
+    padding-top: 1rem; /* Add padding-top to body to push main content down */
     line-height: 1.6;
     background-color: black;
     color: white; /* Set text color to white for better readability */
@@ -17,7 +17,7 @@ body {
 header {
     background-color: white !important;
     color: black !important;
-    padding: .5rem;
+    padding: .5rem; 
     text-align: center !important;
     width: 100%;
     z-index: 1000;
@@ -49,7 +49,7 @@ nav {
 }
 
 main {
-    padding: 2rem;
+    
     width: 80%;
     margin: auto;
     text-align: center;
@@ -98,4 +98,107 @@ table td img {
 
 .csv-container {
             margin-bottom: 50px; /* Adjust as needed */
+}
+
+/* Basic styling for the dropdown container */
+.dropdown-container {
+    position: relative;
+    display: inline-block;
+}
+
+/* Styling for the dropdown toggle link */
+.dropdown-toggle {
+    text-decoration: none;
+    color: black;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* Hide the dropdown content by default */
+.dropdown {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+/* Styling for the dropdown links */
+.dropdown a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown a:hover {
+    background-color: #f1f1f1;
+}
+
+/* Show the dropdown content when hovering over the dropdown container */
+.dropdown-container:hover .dropdown {
+    display: block;
+}
+
+.news-item {
+    margin-bottom: 30px;
+}
+
+.navigation-button-container {
+    position: relative;
+    display: inline-block;
+}
+
+.navigation-button {
+    text-decoration: none;
+    color: black;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer; 
+    position: relative;
+}
+.header-container {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    /*padding: 10px 20px;*/
+    border-bottom: 3px solid black; /* Adjust thickness as needed */
+}
+
+.teams-btn {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    padding: 10px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-right: 15px;
+}
+
+.teams-logos {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Spacing between logos */
+    overflow-x: auto; /* Enables horizontal scrolling if necessary */
+    white-space: nowrap;
+}
+
+.teams-logos img {
+    width: 45px; /* Adjust size as needed */
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover; /* Ensures images stay circular */
+    border: 2px solid transparent;
+    transition: 0.3s;
+}
+
+.teams-logos img:hover {
+    border: 2px solid #000; /* Adds hover effect */
 }

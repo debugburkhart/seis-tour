@@ -4,94 +4,38 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Seis Tour Golf</title>
+    <title>Seis Tour Golf - How It Works</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../styling/styles.css">
     <link rel="icon" href="../icon/SeisTourLogo.ico" type="image/x-icon">
-    <style>
-        /* Basic styling for nav bar */
-        nav ul {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-        }
-
-        nav ul li {
-            display: inline-block;
-            position: relative;
-        }
-
-        nav ul li a {
-            text-decoration: none;
-            padding: 10px;
-            color: black;
-        }
-
-        /* Dropdown container */
-        .dropdown {
-            display: none;
-            position: absolute;
-            background-color: white;
-            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
-            z-index: 1;
-            min-width: 160px;
-        }
-
-        /* Dropdown items */
-        .dropdown a {
-            display: block;
-            padding: 10px;
-            color: black;
-            text-decoration: none;
-        }
-
-        .dropdown a:hover {
-            background-color: #ddd;
-        }
-
-        /* Show dropdown when clicked */
-        .show {
-            display: block;
-        }
-    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> 
 </head>
 <body class="russo-one-regular">
     <header>
-        <div>
-            <img src="../images/SeisTourLogo-removebg-preview.png" alt="Seis Tour" width="100" class="header img">
-            <h1>Seis Tour Golf</h1>
-        <div/>
-        <nav>
-            <ul>
-                <li><a href="../index.html">Home</a></li>
-                <li>
-                    <a href="#" id="stats-link">Stats</a>
-                    <div class="dropdown" id="stats-dropdown">
-                        <a href="../pages/all-time-stats.html">League Leaders</a>
-                        <a href="../pages/previous-season-stats.html">Previous Seasons</a>
-                    </div>
-                </li>
-                <li><a href="../pages/rules.html">Rules</a></li>
-            </ul>
-        </nav>
+        <div id="header-container"></div>
+        <script>
+            fetch("../components/page-header.html")
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById("header-container").innerHTML = data;
+                })
+                .catch(error => console.error("Error loading header:", error));
+        </script>
     </header>
     <main>
         <section id="how-it-works">
             <h2>How it Works</h2>
-            <img src="../images/captain.png" width=350;>
-            <img src="../images/draft.png" width=350;>
-            <img src="../images/seiscupplayoffs.png" width=350;>
-            <img src="../images/seisscramble.png" width=350;>
-            <img src="../images/virtual.png" width=350;>
-            <img src="../images/major.png" width=350;>
-            <img src="../images/scramblepoints.png" width=350;>
-            <img src="../images/team.png" width=350;>
+                <div><a href="how-it-works/becoming-a-captain.html" style="color: lightblue;">Becoming a Captain</a></div>
+                <div><a href="how-it-works/draft-order.html" style="color: lightblue;">Draft Order</a></div>
+                <div><a href="how-it-works/seis-cup-playoffs.html" style="color: lightblue;">Seis Cup Playoffs</a></div>
+                <div><a href="how-it-works/seis-scramble.html" style="color: lightblue;">Seis Scramble</a></div>
+                <div><a href="how-it-works/point-distributions.html" style="color: lightblue;">Point Distributions</a></div>
         </section>
     </main>
     <footer>
-        <p>Updated March 20, 2024</p>
+        <p>Updated Feb 20, 2025</p>
         <p>&copy; 2024 Seis Tour Golf</p>
     </footer>
     <script>

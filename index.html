@@ -8,79 +8,56 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../seis-tour/styling/styles.css">
+    <link rel="stylesheet" href="styling/styles.css">
     <link rel="icon" href="icon/SeisTourLogo.ico" type="image/x-icon">
-    <style>
-        /* Basic styling for nav bar */
-        nav ul {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-        }
-
-        nav ul li {
-            display: inline-block;
-            position: relative;
-        }
-
-        nav ul li a {
-            text-decoration: none;
-            padding: 10px;
-            color: black;
-            cursor: pointer;
-        }
-
-        /* Dropdown container */
-        .dropdown {
-            display: none;
-            position: absolute;
-            background-color: white;
-            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
-            z-index: 1;
-            min-width: 160px;
-        }
-
-        /* Dropdown items */
-        .dropdown a {
-            display: block;
-            padding: 10px;
-            color: black;
-            text-decoration: none;
-        }
-
-        .dropdown a:hover {
-            background-color: #ddd;
-        }
-
-    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> 
 </head>
 <body class="russo-one-regular">
     <header>
-        <div>
-            <img src="images/SeisTourLogo-removebg-preview.png" alt="Seis Tour" width="100" class="header img">
-            <h1>Seis Tour Golf</h1>
-        <div/>
-        <nav>
-            <ul>
-                <!-- Stats Dropdown -->
-                <li>
-                    <a href="#" id="stats-link">Stats</a>
-                    <div class="dropdown" id="stats-dropdown">
-                        <a href="pages/all-time-stats.html">League Leaders</a>
-                        <a href="pages/previous-season-stats.html">Previous Seasons</a>
-                    </div>
-                </li>
-                <li><a href="pages/rules.html">Rules</a></li>
-                <li><a href="pages/how-it-works.html">How it Works</a></li>
-            </ul>
-        </nav>
+        <div id="header-container"></div>
+        <script>
+            fetch("components/index-header.html")
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById("header-container").innerHTML = data;
+                })
+                .catch(error => console.error("Error loading header:", error));
+        </script>
     </header>
     <main>
+        <section id="news-updates">
+            <h2>🏌️ Latest News & Updates</h2>
+        
+            <div class="news-item">
+                <h3>📢 2025 Schedule Live on 18Birdies</h3>
+                <p>February 20, 2025 - The 2025 Seis Tour schedule has been released on 18Birdies. Open the app and navigate to the League tab to view the schedule.</p>
+            </div>
+        
+            <div class="news-item">
+                <h3>⛳ Looking to 2026: California tagged as early favorite to host Seis Cup Playoffs and Other Events</h3>
+                <p>February 20, 2025 - As the Seis Tour Golf community looks ahead to 2026, California is being considered as the early favorite to host the Seis Cup Playoffs. The decision is expected to be made in the coming months.</p>
+                <a href="pages/articles/future-of-seis-tour.html" style="color: lightblue">Learn More</a>
+            </div>
+
+            <div class="news-item">
+                <h3>🏆 Brady Zarvell wins the 2024 Seis Cup Playoffs!</h3>
+                <p>August 10, 2025 - After an intense final hole, Brady Zarvell secures the Seis Cup with a score of 119 (+13) at Baker Park in Kewanee, IL.</p>
+            
+            </div>
+
+            <div class="news-item">
+                <h3>🏆 Rough Riders win 2024 Seis Scramble!</h3>
+                <p>August 9, 2025 - Captain Willie Terry and teammate T.J. Arzola win Seis Scramble by 5 strokes posting an impressive 117 (+9) at Midland Golf Club in Kewanee, IL.</p>
+               
+            </div>
+        
+            <a class="btn" href="pages/article-archive.html" style="color: lightblue">View More Updates</a>
+        </section>
         <section id="results">
             <h2>Past Season Points Leaders</h2>
-            <p>2024 - Brady Zarvell</p>
+            <p>2024 - Brady Zarvell (232 points)</p>
             <br>
-            <p>2023 - Corbin VandeSampel</p>
+            <p>2023 - Corbin VandeSampel (51 points)</p>
             <br>
             <br>
             <h2>Past Event Winners</h2>
@@ -138,6 +115,24 @@
         window.addEventListener('click', function(event) {
             if (!event.target.matches('#stats-link')) {
                 statsDropdown.style.display = 'none';
+            }
+        });
+    </script>
+    <script>
+        // Get the stats link and dropdown elements
+        const teamLink = document.getElementById('team-link');
+        const teamDropdown = document.getElementById('team-dropdown');
+
+        // Toggle dropdown on click
+        teamLink.addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent default anchor behavior
+            teamDropdown.style.display = (teamDropdown.style.display === 'block') ? 'none' : 'block';
+        });
+
+        // Hide dropdown when clicking outside
+        window.addEventListener('click', function(event) {
+            if (!event.target.matches('#team-link')) {
+                teamDropdown.style.display = 'none';
             }
         });
     </script>
