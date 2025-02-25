@@ -175,6 +175,7 @@ table td img {
 .header-container {
     display: flex;
     flex-direction: column; /* Stack title+logo above team logos */
+    flex-direction: column; /* Stack title+logo above team logos */
     align-items: center;
     background-color: white;
     padding: 10px 20px;
