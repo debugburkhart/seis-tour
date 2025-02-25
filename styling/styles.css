@@ -30,13 +30,20 @@ header img {
     margin-right: 0.5rem; /* Add some space between the image and the text */
     vertical-align: middle; /* Align the image vertically in the middle */
 }
+
+nav {
+    margin-top: 1rem; /* Add space between header text and nav */
+}
+
 nav ul {
     list-style-type: none;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
 }
 
 nav ul li {
     display: inline-block;
-    margin-right: 1rem;
 }
 
 nav ul li a {
@@ -44,18 +51,12 @@ nav ul li a {
     text-decoration: none;
 }
 
-nav {
-    margin-top: 1rem; /* Add space between header text and nav */
-}
-
 main {
-    
     width: 80%;
     margin: auto;
     text-align: center;
-    margin-top: 2rem; /* Add margin-top to main to prevent overlap with header */
+    margin-top: 2rem; /* Add margin-top to prevent overlap with header */
 }
-
 
 section {
     margin-bottom: 2rem;
@@ -97,16 +98,16 @@ table td img {
 }
 
 .csv-container {
-            margin-bottom: 50px; /* Adjust as needed */
+    margin-bottom: 50px; /* Adjust as needed */
 }
 
-/* Basic styling for the dropdown container */
+/* Dropdown styling */
 .dropdown-container {
     position: relative;
-    display: inline-block;
+    display: flex;
+    text-align: center;
 }
 
-/* Styling for the dropdown toggle link */
 .dropdown-toggle {
     text-decoration: none;
     color: black;
@@ -117,17 +118,15 @@ table td img {
     cursor: pointer;
 }
 
-/* Hide the dropdown content by default */
 .dropdown {
     display: none;
     position: absolute;
     background-color: #f9f9f9;
     min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
     z-index: 1;
 }
 
-/* Styling for the dropdown links */
 .dropdown a {
     color: black;
     padding: 12px 16px;
@@ -135,12 +134,10 @@ table td img {
     display: block;
 }
 
-/* Change color of dropdown links on hover */
 .dropdown a:hover {
     background-color: #f1f1f1;
 }
 
-/* Show the dropdown content when hovering over the dropdown container */
 .dropdown-container:hover .dropdown {
     display: block;
 }
@@ -149,11 +146,15 @@ table td img {
     margin-bottom: 30px;
 }
 
+/* Navigation button container */
 .navigation-button-container {
-    position: relative;
-    display: inline-block;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    
 }
 
+/* Navigation button styling */
 .navigation-button {
     text-decoration: none;
     color: black;
@@ -161,15 +162,49 @@ table td img {
     background-color: #f9f9f9;
     border: 1px solid #ccc;
     border-radius: 4px;
-    cursor: pointer; 
-    position: relative;
+    cursor: pointer;
 }
+
+/* Ensure "How it Works" stays on the right */
+@media (min-width: 600px) {
+    .navigation-button-container {
+        justify-content: space-evenly;
+    }
+}
+
 .header-container {
     display: flex;
+    flex-direction: column; /* Stack title+logo above team logos */
     align-items: center;
     background-color: white;
-    /*padding: 10px 20px;*/
-    border-bottom: 3px solid black; /* Adjust thickness as needed */
+    padding: 10px 20px;
+    border-bottom: 3px solid black;
+}
+
+.header-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px; /* Space between text and logo */
+    margin-bottom: 10px; /* Space between title and team logos */
+}
+
+.header-title h1 {
+    font-size: 24px;
+    margin: 0;
+}
+
+.header-img {
+    width: 50px;
+    height: auto;
+}
+
+.teams-logos {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Spacing between logos */
+    overflow-x: auto;
+    white-space: nowrap;
 }
 
 .teams-btn {
@@ -180,14 +215,6 @@ table td img {
     font-size: 16px;
     cursor: pointer;
     margin-right: 15px;
-}
-
-.teams-logos {
-    display: flex;
-    align-items: center;
-    gap: 10px; /* Spacing between logos */
-    overflow-x: auto; /* Enables horizontal scrolling if necessary */
-    white-space: nowrap;
 }
 
 .teams-logos img {
