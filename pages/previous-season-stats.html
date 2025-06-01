@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Seis Tour Golf - Previous Seasons</title>
+    <title>Seis Tour Golf - Season Stats</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
@@ -47,7 +47,8 @@
         <section>
             <label for="year-select">Select Season:</label>
             <select id="year-select">
-                <option value="2024" selected>2024</option> <!-- Set 2024 as default -->
+                <option value="2025" selected>2025</option> <!-- Set 2025 as default -->
+                <option value="2024">2024</option>
                 <option value="2023">2023</option>
             </select>
         </section>
@@ -59,10 +60,10 @@
         </section>
     </main>
     <footer>
-        <p>Updated September 22, 2024</p>
+        <p>Updated May 31, 2025</p>
         <p>Stats only reflect league play</p>
         <p>Click on headers to sort</p>
-        <p>&copy; 2024 Seis Tour Golf</p>
+        <p>&copy; 2025 Seis Tour Golf</p>
     </footer>
 
     <script>
@@ -71,6 +72,7 @@
 
         // CSV file paths for each year
         const csvFiles = {
+            "2025": baseURL + '../csvs/SeisTourStats%20-%202025%20Season%20Totals.csv',
             "2024": baseURL + '../csvs/SeisTourStats%20-%202024%20Season%20Totals.csv',
             "2023": baseURL + '../csvs/SeisTourStats%20-%202023%20Season%20Totals.csv'
         };
@@ -182,7 +184,7 @@
         }
 
         // Initially load the stats for 2024
-        loadCSV(csvFiles["2024"], "2024");
+        loadCSV(csvFiles["2025"], "2025");
     </script>
 </body>
 </html>
