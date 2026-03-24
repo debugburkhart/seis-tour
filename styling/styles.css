@@ -1,4 +1,8 @@
 /* Reset default browser styles */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
 body, h1, h2, h3, p, ul, li {
     margin: 0;
     padding: 0;
@@ -12,18 +16,22 @@ body {
     background-color: black;
     color: white;
     text-align: center;
+    overflow-x: hidden;
+    max-width: 100%;
 }
 
 header {
     background-color: white !important;
     color: black !important;
-    padding: .5rem; 
+    padding: .5rem;
     text-align: center !important;
     width: 100%;
     z-index: 1000;
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: visible;
+    box-sizing: border-box;
 }
 
 header img {
@@ -33,20 +41,37 @@ header img {
 
 nav {
     margin-top: 1rem;
+    width: 100%;
+    overflow: visible;
+}
+
+.nav-scroll {
+    overflow-x: auto;
+    overflow-y: visible;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    width: 100%;
+}
+
+.nav-scroll::-webkit-scrollbar {
+    display: none;
 }
 
 nav ul {
     list-style-type: none;
     display: flex;
-    justify-content: center;
     align-items: center;
-    flex-wrap: wrap;
-    gap: 0.5rem;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    gap: 0.4rem;
     padding: 0.5rem;
+    width: max-content;
+    overflow: visible;
 }
 
 nav ul li {
     display: inline-block;
+    position: relative;
 }
 
 nav ul li a {
@@ -58,20 +83,31 @@ nav ul li a {
     padding: 8px 4px;
 }
 
-/* Dropdown - click based instead of hover */
+/* Dropdown styling */
 .dropdown-container {
     position: relative;
+    display: flex;
+    text-align: center;
+}
+
+.dropdown-toggle {
+    text-decoration: none;
+    color: black;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    white-space: nowrap;
 }
 
 .dropdown {
     display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
+    position: fixed;
     background-color: #f9f9f9;
     min-width: 160px;
     box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
-    z-index: 999;
+    z-index: 9999;
     border-radius: 4px;
 }
 
@@ -87,13 +123,44 @@ nav ul li a {
     background-color: #f1f1f1;
 }
 
-.dropdown-container.open .dropdown {
+.dropdown-container:hover .dropdown {
     display: block;
+}
+
+.news-item {
+    margin-bottom: 30px;
+}
+
+/* Navigation button container */
+.navigation-button-container {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+/* Navigation button styling */
+.navigation-button {
+    text-decoration: none;
+    color: black;
+    padding: 8px 12px;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    white-space: nowrap;
+    font-size: 0.85rem;
+}
+
+@media (min-width: 600px) {
+    .navigation-button-container {
+        justify-content: space-evenly;
+    }
 }
 
 @media (max-width: 600px) {
     nav ul {
         gap: 0.4rem;
+        padding: 0.5rem;
     }
 
     nav ul li a,
@@ -102,10 +169,18 @@ nav ul li a {
         font-size: 0.85rem;
         padding: 10px 8px;
     }
+
+    body {
+        font-size: 0.95rem;
+    }
+
+    .header-title h1 {
+        font-size: 18px;
+    }
 }
 
 main {
-    width: 95%; 
+    width: 95%;
     margin: auto;
     text-align: center;
     margin-top: 2rem;
@@ -134,7 +209,8 @@ footer {
 table {
     margin: auto;
     text-align: center;
-    width: 80%;
+    width: 100%;
+    min-width: 300px;
 }
 
 table td {
@@ -145,6 +221,12 @@ table td img {
     margin-right: 5px;
 }
 
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
 #stats ul li a {
     color: white;
     text-decoration: underline;
@@ -152,75 +234,6 @@ table td img {
 
 .csv-container {
     margin-bottom: 50px;
-}
-
-/* Dropdown styling */
-.dropdown-container {
-    position: relative;
-    display: flex;
-    text-align: center;
-}
-
-.dropdown-toggle {
-    text-decoration: none;
-    color: black;
-    padding: 10px;
-    background-color: #f9f9f9;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.dropdown {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
-    z-index: 1;
-}
-
-.dropdown a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-}
-
-.dropdown a:hover {
-    background-color: #f1f1f1;
-}
-
-.dropdown-container:hover .dropdown {
-    display: block;
-}
-
-.news-item {
-    margin-bottom: 30px;
-}
-
-/* Navigation button container */
-.navigation-button-container {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-}
-
-/* Navigation button styling */
-.navigation-button {
-    text-decoration: none;
-    color: black;
-    padding: 10px;
-    background-color: #f9f9f9;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-@media (min-width: 600px) {
-    .navigation-button-container {
-        justify-content: space-evenly;
-    }
 }
 
 .header-container {
@@ -256,6 +269,12 @@ table td img {
     gap: 10px;
     overflow-x: auto;
     white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+}
+
+.teams-logos::-webkit-scrollbar {
+    display: none;
 }
 
 .teams-btn {
@@ -325,7 +344,8 @@ table td img {
     border: 1px solid #2e2e2e;
     border-radius: 12px;
     padding: 28px 32px;
-    width: 320px;
+    width: 90%;
+    max-width: 320px;
     font-family: sans-serif;
     margin: 0 auto;
 }
