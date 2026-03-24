@@ -9,6 +9,11 @@ body, h1, h2, h3, p, ul, li {
     text-align: center;
 }
 
+html {
+    overflow-x: hidden;
+    width: 100%;
+}
+
 body {
     margin: 0;
     padding-top: 1rem;
