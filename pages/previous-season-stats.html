@@ -120,7 +120,10 @@
                 if (index === 0) headers = cells;  // Populate headers
             });
 
-            content.appendChild(table);
+            const wrapper = document.createElement('div');
+            wrapper.classList.add('table-wrapper');
+            wrapper.appendChild(table);
+            content.appendChild(wrapper);
             addSortingFunctionality(table, headers);
             applyRowColors(table);  // Apply row colors initially
         }
