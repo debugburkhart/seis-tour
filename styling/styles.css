@@ -6,12 +6,12 @@ body, h1, h2, h3, p, ul, li {
 }
 
 body {
-    margin: 0; /* Remove default body margin */
-    padding-top: 1rem; /* Add padding-top to body to push main content down */
+    margin: 0;
+    padding-top: 1rem;
     line-height: 1.6;
     background-color: black;
-    color: white; /* Set text color to white for better readability */
-    text-align: center; /* Center align all text */
+    color: white;
+    text-align: center;
 }
 
 header {
@@ -21,18 +21,18 @@ header {
     text-align: center !important;
     width: 100%;
     z-index: 1000;
-    display: flex; /* Use flexbox for layout */
-    justify-content: center; /* Center content horizontally */
-    align-items: center; /* Center content vertically */
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 header img {
-    margin-right: 0.5rem; /* Add some space between the image and the text */
-    vertical-align: middle; /* Align the image vertically in the middle */
+    margin-right: 0.5rem;
+    vertical-align: middle;
 }
 
 nav {
-    margin-top: 1rem; /* Add space between header text and nav */
+    margin-top: 1rem;
 }
 
 nav ul {
@@ -55,7 +55,7 @@ main {
     width: 80%;
     margin: auto;
     text-align: center;
-    margin-top: 2rem; /* Add margin-top to prevent overlap with header */
+    margin-top: 2rem;
 }
 
 section {
@@ -79,17 +79,17 @@ footer {
 }
 
 table {
-    margin: auto; /* Center the table */
+    margin: auto;
     text-align: center;
-    width: 80%; /* Set the width of the table */
+    width: 80%;
 }
 
 table td {
-    padding: 5px; /* Adjust the padding between table cells */
+    padding: 5px;
 }
 
 table td img {
-    margin-right: 5px; /* Adjust the margin between the image and text */
+    margin-right: 5px;
 }
 
 #stats ul li a {
@@ -98,7 +98,7 @@ table td img {
 }
 
 .csv-container {
-    margin-bottom: 50px; /* Adjust as needed */
+    margin-bottom: 50px;
 }
 
 /* Dropdown styling */
@@ -151,7 +151,6 @@ table td img {
     display: flex;
     justify-content: center;
     gap: 1rem;
-    
 }
 
 /* Navigation button styling */
@@ -165,7 +164,6 @@ table td img {
     cursor: pointer;
 }
 
-/* Ensure "How it Works" stays on the right */
 @media (min-width: 600px) {
     .navigation-button-container {
         justify-content: space-evenly;
@@ -174,8 +172,7 @@ table td img {
 
 .header-container {
     display: flex;
-    flex-direction: column; /* Stack title+logo above team logos */
-    flex-direction: column; /* Stack title+logo above team logos */
+    flex-direction: column;
     align-items: center;
     background-color: white;
     padding: 10px 20px;
@@ -186,8 +183,8 @@ table td img {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px; /* Space between text and logo */
-    margin-bottom: 10px; /* Space between title and team logos */
+    gap: 10px;
+    margin-bottom: 10px;
 }
 
 .header-title h1 {
@@ -203,7 +200,7 @@ table td img {
 .teams-logos {
     display: flex;
     align-items: center;
-    gap: 10px; /* Spacing between logos */
+    gap: 10px;
     overflow-x: auto;
     white-space: nowrap;
 }
@@ -219,14 +216,135 @@ table td img {
 }
 
 .teams-logos img {
-    width: 45px; /* Adjust size as needed */
+    width: 45px;
     height: 45px;
     border-radius: 50%;
-    object-fit: cover; /* Ensures images stay circular */
+    object-fit: cover;
     border: 2px solid transparent;
     transition: 0.3s;
 }
 
 .teams-logos img:hover {
-    border: 2px solid #000; /* Adds hover effect */
+    border: 2px solid #000;
 }
+
+/* ---- Team page tables (scoped) ---- */
+.team-page section h2 {
+    font-size: 1.4rem;
+    margin: 32px 0 12px;
+}
+
+.team-page section table {
+    width: 100%;
+    max-width: 700px;
+    border-collapse: collapse;
+    border: 1px solid #2e2e2e;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.team-page section table th,
+.team-page section table td {
+    text-align: left;
+    padding: 12px 16px;
+    font-size: 0.9rem;
+    border-bottom: 1px solid #2e2e2e;
+}
+
+.team-page section table th {
+    color: #aaa;
+    font-weight: 500;
+}
+
+.team-page section table tr:last-child td {
+    border-bottom: none;
+}
+
+.team-page section table td:first-child,
+.team-page section table th:first-child {
+    width: 120px;
+    color: #aaa;
+}
+
+/* Point distribution card */
+.point-card {
+    background: #1a1a1a;
+    border: 1px solid #2e2e2e;
+    border-radius: 12px;
+    padding: 28px 32px;
+    width: 320px;
+    font-family: sans-serif;
+    margin: 0 auto;
+}
+
+.point-card h2 {
+    font-weight: 700;
+    font-size: 1.35rem;
+    color: #ffffff;
+    margin: 0 0 14px 0;
+    text-transform: uppercase;
+}
+
+.event-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 22px 0;
+}
+
+.event-list li {
+    color: #aaaaaa;
+    font-size: 0.9rem;
+    padding: 2px 0;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.event-list li::before {
+    content: "☆";
+    color: #e0b84a;
+}
+
+.points-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.points-table thead tr {
+    border-bottom: 2px solid #333;
+}
+
+.points-table th {
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #666;
+    padding: 0 0 10px 0;
+    text-align: left;
+}
+
+.points-table th:last-child { text-align: right; }
+
+.points-table tbody tr {
+    border-bottom: 1px solid #242424;
+}
+
+.points-table tbody tr:last-child { border-bottom: none; }
+
+.points-table tbody tr:hover { background: #222; }
+
+.points-table td {
+    padding: 9px 0;
+    font-size: 0.95rem;
+    color: #e0e0e0;
+}
+
+.points-table td.points {
+    text-align: right;
+    font-weight: 700;
+    color: #e0b84a;
+}
+
+.points-table tbody tr:nth-child(1) td.place { color: #ffd700; }
+.points-table tbody tr:nth-child(2) td.place { color: #c0c0c0; }
+.points-table tbody tr:nth-child(3) td.place { color: #cd7f32; }
