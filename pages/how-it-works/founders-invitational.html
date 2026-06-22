@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How it Works - Founders Invitational</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../styling/styles.css">
+    <link rel="icon" href="../../icon/SeisTourLogo.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> 
+</head>
+<body class="russo-one-regular">
+    <header>
+        <div id="header-container"></div>
+        <script>
+            fetch("../../components/deep-page-header.html")
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById("header-container").innerHTML = data;
+                })
+                .catch(error => console.error("Error loading header:", error));
+        </script>
+    </header>
+    <main>
+        <h1>Founders Invitational</h1>
+        <p>An 18-hole solo matchplay event</p>
+        <p>All closest to pin tiebreakers are best of 5 and will be played on the same hole a match ends if possible. Find a spot off green about 30 paces from the hole towards the next tee box.</p><br>
+        
+        <h2>Front 9 - Group Stage</h2>
+        <p>Players are divided into groups of 3 (or 4 in some cases) based on last year's standings</p>
+        <p>A draw is used to determine the order of play within each group</p>
+        <p>One player from each pot will be drawn into each group</p>
+        <p>Pot 1: Top 3 players from last year's standings</p>
+        <p>Pot 2: Next 3 (or 4) players from last year's standings</p>
+        <p>Pot 3: Last 3 players from last year's standings</p><br>
+
+        <h3>Group Matches</h3>
+        <p>Once groups are formed, players will compete in group matches within their group</p>
+        <p>The first 3 holes is 1 match, the next 3 holes is another match, and the last 3 holes is a third match</p>
+        <p>Since most groups will have 3 players, each player will play 2 matches in the group stage, order will be assinged randomly</p>
+        <p>When a group member is not playing a match, they will still play the hole, as strokes on the front 9 will be used as a tiebreaker</p>
+        <p>Matches have 3 outcomes: win, loss, or tie</p>
+        <p>Win: 3 points, Tie: 1 point, Loss: 0 points</p>
+        <p>Winning your group or placing 2nd will advance you to the playoff stage on the back 9</p><br>
+
+        <h3>Group Tiebreakers</h3>
+        <p>If players in the same group are tied on points, the following tiebreakers will be used in order:</p>
+        <p>1. Head-to-head record within the group</p>
+        <p>2. Total strokes on the front 9</p>
+        <p>3. A best of 5 closest to the pin</p><br>
+
+        <h2>Back 9 - Playoff Stage</h2>
+        <p>Players who finish top 2 in their group advance to the playoff stage on the back 9</p>
+        <p>Players who finished last in their group will play for 7th-9th place on the back 9</p><br>
+
+        <h3>Playoff Seeding</h3>
+        <p>Players will be seeded in the playoff bracket based on their performance in the group stage</p>
+        <p>Group winners will be seeded 1-3 based on points, then strokes on the front 9, then a closest to the pin tiebreaker if needed</p>
+        <p>The top 2 seeds will receive a bye to the semifinals, played on holes 13-15 (they will still play holes 10-12, but those holes will not count for the playoff stage)</p>
+        <p>The 3rd seed will be the remaining group winner, with seeds 4-6 being the group runners up, seeded based on points, then strokes on the front 9, then a closest to the pin tiebreaker</p><br>
+
+        <h3>First Group to Tee Off - 7th through 9th Place</h3>
+        <p>The first group to tee off will be the 7th-9th place group, they will play holes 10-18 in a similar format to the group stage, with 3 matches of 3 holes each, and points awarded for wins and ties</p>
+        <p>Holes 10-12: 8 seed vs 9 seed, 7 seed plays for stroke tiebreaker</p>
+        <p>Holes 13-15: 7 seed vs 8 seed, 9 seed plays for stroke tiebreaker</p>
+        <p>Holes 16-18: 7 seed vs 9 seed, 8 seed plays for stroke tiebreaker</p>
+        <p>Placement in the 7th-9th place group will be determined by points, then strokes on holes 10-18, then a closest to the pin tiebreaker if needed</p><br>
+
+        <h3>Second Group to Tee Off - First Round of Playoffs</h3>
+        <p>The second group to tee off will consist of a 4 man group of the 3rd-6th seeds</p>
+        <p>They will play holes 10-12 in a head to head matchplay format:</p>
+        <p>3rd seed vs 6th seed, 4th seed vs 5th seed</p>
+        <p>Since only 3 holes are played, if a match is tied after 3 holes, the tiebreaker will be total strokes on holes 10-12, then a closest to the pin tiebreaker if needed</p>
+        <p>Winners of the first round matches wait on the 13th tee box for the 1st and 2nd seeds to catch up</p>
+        <p>Losers of the first round matches will go ahead and play for 5th and 6th place on holes 13-15. If tied after 3 holes, the tiebreaker will be total strokes on holes 13-15, then a closest to the pin tiebreaker if needed. Holes 16-18 can be played but will not count towards playoff results</p><br>
+
+        <h3>Third Group to Tee Off - Semifinals and Finals</h3>
+        <p>The final group to tee off will consist of the 1st and 2nd seeds</p>
+        <p>They will play holes 10-12 as warmup, but those holes will not count towards playoff results</p>
+        <p>They will meet the winners of the first round matches on hole 13 and will play the semifinals on holes 13-15</p>
+        <p>Seed 1 will play the lower remaining seed, while seed 2 will play the higher remaining seed</p>
+        <p>Winners of the semifinals will play in the finals on holes 16-18, while the losers will play for 3rd and 4th place on holes 16-18</p>
+        <p>Since only 3 holes are played in the semifinals and finals, if a match is tied after 3 holes, the tiebreaker will be total strokes on holes 13-15 for the semifinals and holes 16-18 for the finals, then a closest to the pin tiebreaker if needed</p><br>
+
+
+    </main>
+    <footer>
+        <p>Updated June 22, 2026</p>
+        <p>&copy; 2026 Seis Tour Golf</p>
+    </footer>
+    <script>
+        // Toggle the dropdown menu when the "Stats" link is clicked
+        document.getElementById('stats-link').addEventListener('click', function(event) {
+            event.preventDefault();  // Prevent the default anchor action
+            const dropdown = document.getElementById('stats-dropdown');
+            dropdown.classList.toggle('show');  // Toggle the 'show' class to display or hide the dropdown
+        });
+
+        // Close the dropdown if the user clicks outside of it
+        window.addEventListener('click', function(event) {
+            if (!event.target.matches('#stats-link')) {
+                const dropdowns = document.getElementsByClassName('dropdown');
+                for (let i = 0; i < dropdowns.length; i++) {
+                    let openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
